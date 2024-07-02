@@ -19,6 +19,7 @@ class CustomTextFiled extends StatelessWidget {
     this.maxLength,
     this.maxLengthEnforcement,
     this.prefixText,
+    this.suffixIcon,
   });
 
   final TextEditingController? controller;
@@ -35,6 +36,7 @@ class CustomTextFiled extends StatelessWidget {
   final int? maxLength;
   final MaxLengthEnforcement? maxLengthEnforcement;
   final String? prefixText;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class CustomTextFiled extends StatelessWidget {
       keyboardType: textInputType,
       focusNode: focusNode,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
         prefixText: prefixText,
         // prefixStyle: const TextStyle(color: AppColor.kIconColor, fontSize: 14),
         // labelText: labelText,

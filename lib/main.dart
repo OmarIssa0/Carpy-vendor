@@ -1,4 +1,7 @@
 import 'package:car_vendor/core/utils/theme.dart';
+import 'package:car_vendor/features/auth/presentation/view/forget_password_view.dart';
+import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
+import 'package:car_vendor/features/auth/presentation/view/sign_up_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/lang/cubit/locale_cubit.dart';
 import 'package:car_vendor/features/splash/presentation/view/splash_view.dart';
@@ -55,10 +58,10 @@ class CarVendor extends StatelessWidget {
               initialRoute: SplashView.routeName,
               routes: {
                 SplashView.routeName: (context) => const SplashView(),
-                // LoginView.routeName: (context) => const LoginView(),
-                // SignUpView.routeName: (context) => const SignUpView(),
-                // ForgetPasswordView.routeName: (context) =>
-                //     const ForgetPasswordView(),
+                LoginView.routeName: (context) => const LoginView(),
+                SignUpView.routeName: (context) => const SignUpView(),
+                ForgetPasswordView.routeName: (context) =>
+                    const ForgetPasswordView(),
               },
             );
           }

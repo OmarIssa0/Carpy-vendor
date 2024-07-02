@@ -1,6 +1,6 @@
 {
     "Login": "تسجيل الدخول",
-    "Welcome to CarStore": " مرحبا بك في CarStore",
+    "Welcome to CarVendor": " مرحبا بك في CarVendor",
     "Email address": "البريد الالكتروني",
     "Password": "كلمة المرور",
     "Forgot Password?": "نسيت كلمة المرور؟",
@@ -55,5 +55,9 @@
     "Search": "بحث",
     "Favorite": "المفضلة",
     "My Profile": "الملف الشخصي",
-    "language": "لغة"
+    "language": "لغة",
+    "name Company": "اسم الشركة",
+    "Verify Password": "تحقق من كلمة المرور",
+    "Upload Image": "رفع صورة",
+    "Create a merchant account": "انشاء حساب تاجر"
 }

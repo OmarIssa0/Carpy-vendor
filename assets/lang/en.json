@@ -1,6 +1,6 @@
 {
     "Login": "Login",
-    "Welcome to CarStore": "Welcome to CarStore",
+    "Welcome to CarVendor": "Welcome to CarVendor",
     "Email address": "Email address",
     "Password": "Password",
     "Forgot Password?": "Forgot Password?",
@@ -55,5 +55,9 @@
     "Search": "Search",
     "Favorite": "Favorite",
     "My Profile": "My Profile",
-    "language": "language"
+    "language": "language",
+    "name Company": "name Company",
+    "Verify Password": "Verify Password",
+    "Upload Image": "Upload Image",
+    "Create a merchant account": "Create a merchant account"
 }
