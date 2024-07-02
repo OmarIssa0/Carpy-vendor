@@ -6,6 +6,7 @@ import 'package:car_vendor/core/widgets/custom_button.dart';
 import 'package:car_vendor/core/widgets/custom_text_filed.dart';
 import 'package:car_vendor/features/auth/presentation/view/forget_password_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/sign_up_view.dart';
+import 'package:car_vendor/features/home/presentation/view/home_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class LoginViewBody extends StatelessWidget {
             CustomButton(
               title: 'Login'.tr(context),
               onPressed: () {
-                // Navigator.pushNamed(context, RootView.routeName);
+                Navigator.pushNamed(context, HomeView.routeName);
               },
             ),
             const SizedBox(height: 45),

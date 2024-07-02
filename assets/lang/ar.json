@@ -59,5 +59,9 @@
     "name Company": "اسم الشركة",
     "Verify Password": "تحقق من كلمة المرور",
     "Upload Image": "رفع صورة",
-    "Create a merchant account": "انشاء حساب تاجر"
+    "Create a merchant account": "انشاء حساب تاجر",
+    "My products": "منتجاتي",
+    "Edit item": "تعديل المنتج",
+    "Delete item": "حذف المنتج",
+    "Settings": "الاعدادات"
 }

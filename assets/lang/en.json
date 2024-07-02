@@ -59,5 +59,9 @@
     "name Company": "name Company",
     "Verify Password": "Verify Password",
     "Upload Image": "Upload Image",
-    "Create a merchant account": "Create a merchant account"
+    "Create a merchant account": "Create a merchant account",
+    "My products": "My products",
+    "Edit item": "Edit item",
+    "Delete item": "Delete item",
+    "Settings": "Settings"
 }
