@@ -88,8 +88,8 @@ class LoginViewBody extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don’t have an account?".tr(context),
-                    style: AppStyles.medium14),
+                Text("Don’t have an vendor account ?".tr(context),
+                    style: AppStyles.medium12),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, SignUpView.routeName);

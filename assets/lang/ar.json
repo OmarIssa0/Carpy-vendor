@@ -63,5 +63,20 @@
     "My products": "منتجاتي",
     "Edit item": "تعديل المنتج",
     "Delete item": "حذف المنتج",
-    "Settings": "الاعدادات"
+    "Settings": "الاعدادات",
+    "Add Product": "اضافة منتج",
+    "Choose the ad type": "اختر نوع الاعلان",
+    "freelancer": "مستقل",
+    "Logout": "تسجيل خروج",
+    "market": "محل تجاري",
+    "Don’t have an vendor account ?": "ليس لديك حساب بائع؟",
+    "brand": "العلامة التجارية",
+    "Product Name": "اسم المنتج",
+    "Price": "السعر",
+    "Description": "وصف",
+    "Add": "اضافة",
+    "Edit": "تعديل",
+    "Discount": "خصم",
+    "Location": "الموقع",
+    "Model": "الموديل"
 }

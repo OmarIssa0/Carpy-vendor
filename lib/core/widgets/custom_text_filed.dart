@@ -20,6 +20,8 @@ class CustomTextFiled extends StatelessWidget {
     this.maxLengthEnforcement,
     this.prefixText,
     this.suffixIcon,
+    this.minLines,
+    this.maxLines,
   });
 
   final TextEditingController? controller;
@@ -37,10 +39,13 @@ class CustomTextFiled extends StatelessWidget {
   final MaxLengthEnforcement? maxLengthEnforcement;
   final String? prefixText;
   final Widget? suffixIcon;
+  final int? minLines, maxLines;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      minLines: minLines ?? 1,
+      maxLines: maxLines ?? 1,
       maxLengthEnforcement: maxLengthEnforcement,
       maxLength: maxLength,
       obscureText: obscureText ?? false,

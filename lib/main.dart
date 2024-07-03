@@ -1,4 +1,8 @@
+import 'package:car_vendor/core/cache/cache_helper.dart';
+import 'package:car_vendor/core/service/service_locator.dart';
 import 'package:car_vendor/core/utils/theme.dart';
+import 'package:car_vendor/features/add_product/presentation/view/add_products_view.dart';
+import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/forget_password_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/sign_up_view.dart';
@@ -12,12 +16,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     // DeviceOrientation.portraitDown,
   ]);
+  // WidgetsFlutterBinding.ensureInitialized();
+  setupServiceLocator();
+  await getIt<CacheHelper>().init();
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -67,6 +75,8 @@ class CarVendor extends StatelessWidget {
                 // RootView.routeName: (context) => const RootView(),
                 HomeView.routeName: (context) => const HomeView(),
                 SettingsView.routeName: (context) => const SettingsView(),
+                AddProductsView.routeName: (context) => const AddProductsView(),
+                MarkerView.routeName: (context) => const MarkerView(),
               },
             );
           }

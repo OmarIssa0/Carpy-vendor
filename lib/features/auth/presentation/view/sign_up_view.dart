@@ -24,7 +24,7 @@ class SignUpView extends StatelessWidget {
         ),
         title: Text(
           "Create a merchant account".tr(context),
-          style: AppStyles.semiBold24
+          style: AppStyles.semiBold15
               .copyWith(color: AppColor.kBackGroundColorSplash),
         ),
       ),

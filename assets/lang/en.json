@@ -63,5 +63,20 @@
     "My products": "My products",
     "Edit item": "Edit item",
     "Delete item": "Delete item",
-    "Settings": "Settings"
+    "Settings": "Settings",
+    "Add Product": "Add Product",
+    "Choose the ad type": "Choose the ad type",
+    "freelancer": "freelancer",
+    "Logout": "Logout",
+    "market": "market",
+    "Don’t have an vendor account ?": "Don’t have an vendor account ?",
+    "brand": "brand",
+    "Product Name": "Product Name",
+    "Price": "Price",
+    "Description": "Description",
+    "Add": "Add",
+    "Edit": "Edit",
+    "Discount": "Discount",
+    "Location": "Location",
+    "Model": "Model"
 }

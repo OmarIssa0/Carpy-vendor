@@ -1,18 +1,6 @@
 class Assets {
   Assets._();
   
-  /// Assets for imagesBannar1
-  /// assets/images/bannar1.png
-  static const String imagesBannar1 = "assets/images/bannar1.png";
-
-  /// Assets for imagesBanner2
-  /// assets/images/banner2.png
-  static const String imagesBanner2 = "assets/images/banner2.png";
-
-  /// Assets for imagesBanner3
-  /// assets/images/banner3.png
-  static const String imagesBanner3 = "assets/images/banner3.png";
-
   /// Assets for imagesCarTest
   /// assets/images/car_test.png
   static const String imagesCarTest = "assets/images/car_test.png";
@@ -60,5 +48,9 @@ class Assets {
   /// Assets for imagesTesla
   /// assets/images/Tesla.png
   static const String imagesTesla = "assets/images/Tesla.png";
+
+  /// Assets for imagesUploadImage
+  /// assets/images/uploadImage.png
+  static const String imagesUploadImage = "assets/images/uploadImage.png";
 }
 

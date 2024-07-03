@@ -1,6 +1,7 @@
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/core/widgets/adaptive_layout_widgets.dart';
+import 'package:car_vendor/features/add_product/presentation/view/add_products_view.dart';
 import 'package:car_vendor/features/home/presentation/view/widgets/home_view_body.dart';
 import 'package:car_vendor/features/settings/presentation/view/settings_view.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,9 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.kBackGroundColorSplash,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AddProductsView.routeName);
+        },
         child: const Icon(Icons.add, color: Colors.white),
       ),
       appBar: AppBar(
