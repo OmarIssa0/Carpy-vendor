@@ -1,14 +1,15 @@
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_styles.dart';
-import 'package:car_vendor/core/widgets/adaptive_layout_widgets.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/market_view_body.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
+import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
 import 'package:flutter/material.dart';
 
 class MarkerView extends StatelessWidget {
-  const MarkerView({super.key});
+  const MarkerView({super.key, this.productsModel});
   static String routeName = '/kMarketView';
 
+  final ProductsModel? productsModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +29,7 @@ class MarkerView extends StatelessWidget {
           ),
         ),
       ),
-      body: AdaptiveLayout(
-        mobileLayout: (context) => const MarketViewBody(),
-        tabletLayout: (context) => const MarketViewBody(),
-      ),
+      body: MarketViewBody(productsModel: productsModel),
     );
   }
 }

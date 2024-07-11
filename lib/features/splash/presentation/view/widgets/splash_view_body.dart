@@ -1,3 +1,4 @@
+import 'package:car_vendor/core/utils/animation_nav.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,9 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   void excuteNavigation() {
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, LoginView.routeName);
+      // Navigator.pushReplacementNamed(context, LoginView.routeName);
+      Navigator.pushReplacement(
+          context, AnimationNav.navigatorAnimation(child: const LoginView()));
     });
   }
 }

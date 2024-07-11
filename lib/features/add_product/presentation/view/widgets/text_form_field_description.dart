@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 class TextFormFieldDescription extends StatelessWidget {
   const TextFormFieldDescription({
     super.key,
+    required this.descriptionController,
+    // required this.descriptionController,
   });
+  final TextEditingController descriptionController;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // controller: _descriptionController,
+      controller: descriptionController,
       minLines: 5,
       maxLines: 8,
       maxLength: 1000,

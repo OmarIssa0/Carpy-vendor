@@ -40,7 +40,9 @@ dependencies:
   iconly: ^1.0.1
   image_picker: ^1.1.2
   popover: ^0.3.0+1
+  provider: ^6.1.2
   shared_preferences: ^2.2.2
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

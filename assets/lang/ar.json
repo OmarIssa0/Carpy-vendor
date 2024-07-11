@@ -59,8 +59,9 @@
     "name Company": "اسم الشركة",
     "Verify Password": "تحقق من كلمة المرور",
     "Upload Image": "رفع صورة",
-    "Create a merchant account": "انشاء حساب تاجر",
+    "Create a merchant account": "انشاء حساب بائع",
     "My products": "منتجاتي",
+    "My Products": "منتجاتي",
     "Edit item": "تعديل المنتج",
     "Delete item": "حذف المنتج",
     "Settings": "الاعدادات",
@@ -78,5 +79,11 @@
     "Edit": "تعديل",
     "Discount": "خصم",
     "Location": "الموقع",
-    "Model": "الموديل"
+    "Model": "الموديل",
+    "Home": "الرئيسية",
+    "Cart": "عربة التسوق",
+    "Choose your account type": "اختر نوع حسابك",
+    "Requests received": "الطلبات المستلمة",
+    "He wants to get": "يرغب بالحصول على",
+    "Add a reservation": "اضافة حجز"
 }

@@ -2,57 +2,70 @@ import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class AppConstants {
+  static List<String> userType = ["market", "freelancer"];
   static List<String> brandList = [
-    "Acura",
-    "Alfa Romeo",
-    "Aston Martin",
-    "Audi",
-    "Bentley",
-    "BMW",
-    "Bugatti",
-    "Cadillac",
-    "Chevrolet",
-    "Chrysler",
-    "Dodge",
-    "Ferrari",
-    "Fiat",
-    "Ford",
-    "Honda",
-    "Hyundai",
-    "Jaguar",
-    "Jeep",
-    "Kia",
-    "Lamborghini",
-    "Land Rover",
-    "Lexus",
-    "Maserati",
-    "Mazda",
-    "Mercedes-Benz",
-    "Mitsubishi",
-    "Nissan",
-    "Porsche",
-    "Rolls-Royce",
-    "Subaru",
-    "Suzuki",
-    "Tesla",
-    "Toyota",
-    "Volkswagen",
-    "Volvo",
+    "Acura - أكورا",
+    "Alfa Romeo - ألفا روميو",
+    "Aston Martin - أستون مارتن",
+    "Audi - أودي",
+    "Bentley - بنتلي",
+    "BMW - بي إم دبليو",
+    "Bugatti - بوغاتي",
+    "Cadillac - كاديلاك",
+    "Chevrolet - شيفروليه",
+    "Chrysler - كرايسلر",
+    "Dodge - دودج",
+    "Ferrari - فيراري",
+    "Fiat - فيات",
+    "Ford - فورد",
+    "Honda - هوندا",
+    "Hyundai - هيونداي",
+    "Jaguar - جاكوار",
+    "Jeep - جيب",
+    "Kia - كيا",
+    "Lamborghini - لامبورغيني",
+    "Land Rover - لاند روفر",
+    "Lexus - لكزس",
+    "Maserati - مازيراتي",
+    "Mazda - مازدا",
+    "Mercedes-Benz - مرسيدس بنز",
+    "Mitsubishi - ميتسوبيشي",
+    "Nissan - نيسان",
+    "Porsche - بورش",
+    "Rolls-Royce - رولز رويس",
+    "Subaru - سوبارو",
+    "Suzuki - سوزوكي",
+    "Tesla - تسلا",
+    "Toyota - تويوتا",
+    "Volkswagen - فولكس واجن",
+    "Volvo - فولفو",
   ];
 
-  static List<DropdownMenuItem<String>> brandDropDownList(
-      BuildContext context) {
+  static List<DropdownMenuItem<String>> brandDropDownList() {
     List<DropdownMenuItem<String>> menuItem =
         List<DropdownMenuItem<String>>.generate(
       brandList.length,
       (index) => DropdownMenuItem(
-        value: brandList[index].tr(context),
+        value: brandList[index],
         child: Text(
-          brandList[index].tr(context),
+          brandList[index],
         ),
       ),
     );
+    return menuItem;
+  }
 
+  static List<DropdownMenuItem<String>> userInfoType(BuildContext context) {
+    List<DropdownMenuItem<String>> menuItem =
+        List<DropdownMenuItem<String>>.generate(
+      userType.length,
+      (index) => DropdownMenuItem(
+        value: userType[index].tr(context),
+        child: Text(
+          userType[index].tr(context),
+        ),
+      ),
+    );
     return menuItem;
   }
 }

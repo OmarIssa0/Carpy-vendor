@@ -61,6 +61,7 @@
     "Upload Image": "Upload Image",
     "Create a merchant account": "Create a merchant account",
     "My products": "My products",
+    "My Products": "My Products",
     "Edit item": "Edit item",
     "Delete item": "Delete item",
     "Settings": "Settings",
@@ -78,5 +79,12 @@
     "Edit": "Edit",
     "Discount": "Discount",
     "Location": "Location",
-    "Model": "Model"
+    "Model": "Model",
+    "Home": "Home",
+    "Cart": "Cart",
+    "Choose your account type": "Choose your account type",
+    "Requests received": "Requests received",
+    "He wants to get": "He wants to get",
+    "Add a reservation": "Add a reservation"
+    
 }

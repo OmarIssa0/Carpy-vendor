@@ -64,7 +64,7 @@ class ItemAD extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         height: MediaQuery.sizeOf(context).height * .15,
-        width: MediaQuery.sizeOf(context).width * .7,
+        width: MediaQuery.sizeOf(context).width * .5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: AppColor.kGrayColor.withOpacity(.2),

@@ -3,9 +3,9 @@ import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/core/utils/size_config.dart';
 import 'package:car_vendor/core/widgets/custom_text_filed.dart';
 import 'package:car_vendor/features/auth/presentation/view/widgets/forgot_password_button.dart';
+import 'package:car_vendor/features/auth/presentation/view/widgets/user_info_type_dropdown.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 
 class SignUpViewBody extends StatefulWidget {
@@ -117,6 +117,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               textInputType: TextInputType.visiblePassword,
               textInputAction: TextInputAction.done,
             ),
+            const SizedBox(height: 16),
+            const InfoUserMarketOrFreelancer(),
             const SizedBox(height: 45),
             ForgotPasswordButton(
               child: Row(
