@@ -1,6 +1,5 @@
 import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
-import 'package:car_vendor/features/home/presentation/view/widgets/item_popover.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/provider/product_provider.dart';
 import 'package:flutter/material.dart';

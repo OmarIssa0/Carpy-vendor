@@ -125,6 +125,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
               CustomTextFiled(
                 key: const ValueKey("Product Name"),
                 controller: productNameController,
+                focusNode: productNameFocusNode,
                 title: "Product Name".tr(context),
                 textInputType: TextInputType.name,
                 textInputAction: TextInputAction.next,
@@ -136,6 +137,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     child: CustomTextFiled(
                         key: const ValueKey("Price"),
                         controller: priceController,
+                        focusNode: priceFocusNode,
                         title: "Price".tr(context),
                         textInputType: TextInputType.number),
                   ),
@@ -145,6 +147,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     child: CustomTextFiled(
                         controller: discountController,
                         key: const ValueKey("Discount"),
+                        focusNode: discountFocusNode,
                         title: "Discount".tr(context),
                         textInputType: TextInputType.number),
                   ),
@@ -167,7 +170,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     child: CustomTextFiled(
                       controller: locationController,
                       key: const ValueKey("Location"),
-                      // // controller: addProduct.locationController,
+                      focusNode: locationFocusNode,
                       prefix: const Icon(IconlyBold.location,
                           color: AppColor.kSilver),
                       title: "Location".tr(context),
@@ -187,6 +190,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
               TextFormFieldDescription(
                 descriptionController: descriptionController,
                 key: const ValueKey("Description"),
+                descriptionFocusNode: descriptionFocusNode,
               ),
               // const SizedBox(height: 45),
               const SizedBox(height: 15),
@@ -194,7 +198,12 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                 productModel: widget.productsModel,
               ),
               const SizedBox(height: 15),
-              CustomButton(title: "Add Product".tr(context), onPressed: () {}),
+              CustomButton(
+                title: isEditing
+                    ? "Edit product".tr(context)
+                    : "Add Product".tr(context),
+                onPressed: () {},
+              ),
               const SizedBox(height: 45),
             ],
           ),

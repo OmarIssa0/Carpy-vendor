@@ -6,9 +6,11 @@ class TextFormFieldDescription extends StatelessWidget {
   const TextFormFieldDescription({
     super.key,
     required this.descriptionController,
+    required this.descriptionFocusNode,
     // required this.descriptionController,
   });
   final TextEditingController descriptionController;
+  final FocusNode descriptionFocusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,11 @@ class TextFormFieldDescription extends StatelessWidget {
         enabledBorder: buildBorder(),
         focusedErrorBorder: buildBorder(),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColor.kSilver.withOpacity(.2))),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColor.kSilver.withOpacity(.2),
+          ),
+        ),
       ),
 
       // validator: (value) {

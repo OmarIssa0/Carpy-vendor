@@ -1,12 +1,9 @@
-import 'package:car_vendor/core/utils/animation_nav.dart';
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/widgets/adaptive_layout_widgets.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/my_product/presentation/view/widgets/my_product_view_body.dart';
-import 'package:car_vendor/features/my_product/presentation/view_model/provider/product_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MyProductView extends StatelessWidget {
   const MyProductView({super.key});
@@ -14,7 +11,7 @@ class MyProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
+    // final productProvider = Provider.of<ProductProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('My products'.tr(context)),
