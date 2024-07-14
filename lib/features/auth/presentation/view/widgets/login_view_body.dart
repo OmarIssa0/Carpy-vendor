@@ -11,7 +11,6 @@ import 'package:car_vendor/features/auth/presentation/view/forget_password_view.
 import 'package:car_vendor/features/auth/presentation/view/sign_up_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/loading_manger.dart';
-import 'package:car_vendor/root_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconly/iconly.dart';

@@ -2,16 +2,70 @@ import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/core/utils/size_config.dart';
+import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/core/widgets/drop_down_button.dart';
+import 'package:car_vendor/features/auth/presentation/manger/model/user_model.dart';
+import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
+import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/profile/presentation/view/widgets/custom_list_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 
-class ProfileViewBody extends StatelessWidget {
+class ProfileViewBody extends StatefulWidget {
   const ProfileViewBody({super.key});
 
   @override
+  State<ProfileViewBody> createState() => _ProfileViewBodyState();
+}
+
+class _ProfileViewBodyState extends State<ProfileViewBody>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+  User? user = FirebaseAuth.instance.currentUser;
+  bool _isLoading = true;
+  UserModel? userModel;
+
+  Future<void> fetchUserInfo() async {
+    if (user == null) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      userModel = await userProvider.getUser();
+    } catch (error) {
+      if (!mounted) return;
+      await AlertDialogMethods.showError(
+        context: context,
+        subtitle: "An error has been occured".tr(context),
+        titleBottom: "Ok",
+        lottileAnimation: Assets.imagesErrorMas,
+        function: () {
+          Navigator.of(context).pop();
+        },
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    fetchUserInfo();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SingleChildScrollView(
       child: Padding(
         padding: MediaQuery.sizeOf(context).width < SizeConfig.tablet
@@ -23,23 +77,23 @@ class ProfileViewBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30,
                   backgroundImage: AssetImage(Assets.imagesIconApp),
                 ),
-                SizedBox(width: 19),
+                const SizedBox(width: 19),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       // 'Matilda Brown',
-                      'name company',
+                      userModel?.vendorName ?? '',
                       style: AppStyles.medium16,
                     ),
                     Text(
-                      "+962799999999",
+                      userModel?.phoneNumber ?? '',
                       style: AppStyles.medium14,
                     ),
                   ],

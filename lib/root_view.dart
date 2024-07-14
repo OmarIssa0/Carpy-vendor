@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:car_vendor/core/utils/app_color.dart';
+import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/home/presentation/view/home_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/my_product/presentation/view/my_product_view.dart';
 import 'package:car_vendor/features/profile/presentation/view/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 
 class RootView extends StatefulWidget {
   static String routeName = '/RootView';
@@ -15,6 +19,7 @@ class RootView extends StatefulWidget {
 }
 
 class _RootViewState extends State<RootView> {
+  bool isLoading = true;
   late PageController _controller;
   int currentScreen = 0;
 
@@ -28,6 +33,21 @@ class _RootViewState extends State<RootView> {
   void initState() {
     super.initState();
     _controller = PageController(initialPage: currentScreen);
+  }
+
+  Future<void> fetchData() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      Future.wait({
+        userProvider.getUser(),
+      });
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override

@@ -1,5 +1,7 @@
 import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
+import 'package:car_vendor/features/auth/presentation/manger/model/user_model.dart';
+import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/provider/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,10 @@ class ItemProductsVendor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+    // final userModel = Provider.of<UserModel>(context, listen: false);
     final getCurrentProduct = productProvider.findByProductId(productId);
+    final getUser = userProvider.getUser();
     Size size = MediaQuery.of(context).size;
     return getCurrentProduct == null
         ? const SizedBox.shrink()
@@ -29,6 +34,7 @@ class ItemProductsVendor extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => MarkerView(
                         productsModel: getCurrentProduct,
+                        // userModel: userModel,
                       ),
                     ),
                   );

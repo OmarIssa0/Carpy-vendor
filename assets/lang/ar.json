@@ -109,5 +109,6 @@
     "Password reset link sent! Check your email!": "تم ارسال رابط استعادة كلمة المرور! تحقق من بريدك الإلكتروني!",
     "Passwords do not match": "كلمات المرور غير متطابقة",
     "Please select company type": "الرجاء أختيار نوع الشركة",
-    "Please select image": "الرجاء أختيار صورة"
+    "Please select image": "الرجاء أختيار صورة",
+    "Please fill all fields": "الرجاء أملأ جميع الحقول"
 }

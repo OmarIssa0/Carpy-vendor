@@ -8,7 +8,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
 
 class SignUpProvider with ChangeNotifier {
   final formKey = GlobalKey<FormState>();
@@ -30,6 +29,7 @@ class SignUpProvider with ChangeNotifier {
   late FocusNode passwordFocusNode;
   late FocusNode confirmPasswordFocusNode;
   late FocusNode phoneNumberFocusNode;
+  final authFirebase = FirebaseAuth.instance;
 
   SignUpProvider() {
     nameCompanyController = TextEditingController();
@@ -78,7 +78,7 @@ class SignUpProvider with ChangeNotifier {
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
         );
-        User? user = auth.user;
+        User? user = authFirebase.currentUser;
         final uid = user!.uid;
         final ref = FirebaseStorage.instance
             .ref()
@@ -87,12 +87,9 @@ class SignUpProvider with ChangeNotifier {
         await ref.putFile(File(image!.path));
         final vendorImageUrl = await ref.getDownloadURL();
 
-        final vendorId = const Uuid().v4();
-        await FirebaseFirestore.instance
-            .collection("vendors")
-            .doc(vendorId)
-            .set({
-          "vendorId": vendorId,
+        // final vendorId = const Uuid().v4();
+        await FirebaseFirestore.instance.collection("vendors").doc(uid).set({
+          "vendorId": uid,
           "vendorName": nameCompanyController.text.trim(),
           "vendorEmail": emailController.text.trim(),
           "image": vendorImageUrl,

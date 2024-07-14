@@ -1,15 +1,18 @@
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/market_view_body.dart';
+import 'package:car_vendor/features/auth/presentation/manger/model/user_model.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
 import 'package:flutter/material.dart';
 
 class MarkerView extends StatelessWidget {
-  const MarkerView({super.key, this.productsModel});
+  const MarkerView({super.key, this.productsModel, this.userModel});
   static String routeName = '/kMarketView';
 
   final ProductsModel? productsModel;
+  final UserModel? userModel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +32,9 @@ class MarkerView extends StatelessWidget {
           ),
         ),
       ),
-      body: MarketViewBody(productsModel: productsModel),
+      body: MarketViewBody(
+        productsModel: productsModel,
+      ),
     );
   }
 }
