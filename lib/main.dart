@@ -3,7 +3,6 @@ import 'package:car_vendor/core/service/service_locator.dart';
 import 'package:car_vendor/core/utils/theme.dart';
 import 'package:car_vendor/features/add_product/presentation/view/add_products_view.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
-import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
 import 'package:car_vendor/features/auth/presentation/view/forget_password_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/sign_up_view.dart';

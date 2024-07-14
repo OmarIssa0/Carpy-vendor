@@ -13,7 +13,7 @@ class ProductsModel extends ChangeNotifier {
       userId;
   final String? locationVendor, discount;
   List<dynamic> imagesProduct;
-  List<dynamic> productsVendor;
+  // List<dynamic> productsVendor;
   bool isSwitchReservation = false;
   // Timestamp? createdAt;
 
@@ -29,7 +29,7 @@ class ProductsModel extends ChangeNotifier {
     required this.modelProduct,
     required this.categoryProduct,
     required this.imagesProduct,
-    required this.productsVendor,
+    // required this.productsVendor,
     required this.isSwitchReservation,
     this.locationVendor,
     this.discount,
