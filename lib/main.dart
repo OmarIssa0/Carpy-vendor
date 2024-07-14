@@ -15,7 +15,9 @@ import 'package:car_vendor/features/my_product/presentation/view_model/provider/
 import 'package:car_vendor/features/profile/presentation/view/profile_view.dart';
 import 'package:car_vendor/features/settings/presentation/view/settings_view.dart';
 import 'package:car_vendor/features/splash/presentation/view/splash_view.dart';
+import 'package:car_vendor/firebase_options.dart';
 import 'package:car_vendor/root_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +26,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     // DeviceOrientation.portraitDown,

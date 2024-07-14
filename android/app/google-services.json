@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "212422150927",
+    "project_id": "car-store-c22d4",
+    "storage_bucket": "car-store-c22d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212422150927:android:1ffeba7c1de2935ddb8c7a",
+        "android_client_info": {
+          "package_name": "com.example.car_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212422150927-4bvl3nbpldn4unsi79480u8c2uca1iqb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.car_store",
+            "certificate_hash": "8cffea6a5556a8fcd23862405bdec71711cf0582"
+          }
+        },
+        {
+          "client_id": "212422150927-l2trl5uni1m6q03ld023fitmppbdap9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfPTBaKuf45XqZbl5Gj_-RrERL-goJAbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212422150927-l2trl5uni1m6q03ld023fitmppbdap9u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "212422150927-je398ic1dq7q4g19gqbg67ggeg6mb5lm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212422150927:android:f46998893100ea0cdb8c7a",
+        "android_client_info": {
+          "package_name": "com.example.car_vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212422150927-l2trl5uni1m6q03ld023fitmppbdap9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfPTBaKuf45XqZbl5Gj_-RrERL-goJAbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212422150927-l2trl5uni1m6q03ld023fitmppbdap9u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "212422150927-je398ic1dq7q4g19gqbg67ggeg6mb5lm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carStore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
