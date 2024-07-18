@@ -6,12 +6,16 @@ import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/core/widgets/drop_down_button.dart';
 import 'package:car_vendor/features/auth/presentation/manger/model/user_model.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
+import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/profile/presentation/view/widgets/custom_list_tile.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../../core/utils/animation_nav.dart';
 
 class ProfileViewBody extends StatefulWidget {
   const ProfileViewBody({super.key});
@@ -79,10 +83,21 @@ class _ProfileViewBodyState extends State<ProfileViewBody>
           children: [
             Row(
               children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage(Assets.imagesIconApp),
-                ),
+                userModel?.image == null
+                    ? const CircleAvatar(
+                        backgroundImage: AssetImage(Assets.imagesIconApp))
+                    : Container(
+                        height: 60,
+                        width: 60,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        // backgroundImage: AssetImage(Assets.imagesIconApp),
+                        child: FancyShimmerImage(
+                          imageUrl: userModel!.image,
+                          errorWidget: const Icon(IconlyLight.profile),
+                        ),
+                      ),
                 const SizedBox(width: 19),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,6 +153,11 @@ class _ProfileViewBodyState extends State<ProfileViewBody>
                   //     context,
                   //     AnimationNav.navigatorAnimation(
                   //         child: const FavoriteView()));
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                      context,
+                      AnimationNav.navigatorAnimation(
+                          child: const LoginView()));
                 },
               ),
             )

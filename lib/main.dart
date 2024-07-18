@@ -3,6 +3,7 @@ import 'package:car_vendor/core/service/service_locator.dart';
 import 'package:car_vendor/core/utils/theme.dart';
 import 'package:car_vendor/features/add_product/presentation/view/add_products_view.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
+import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/auth/presentation/view/forget_password_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
@@ -12,6 +13,7 @@ import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/lang/cubit/locale_cubit.dart';
 import 'package:car_vendor/features/my_product/presentation/view/my_product_view.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
+import 'package:car_vendor/features/my_product/presentation/view_model/provider/my_products_provider.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/provider/product_provider.dart';
 import 'package:car_vendor/features/profile/presentation/view/profile_view.dart';
 import 'package:car_vendor/features/settings/presentation/view/settings_view.dart';
@@ -55,8 +57,10 @@ class CarVendor extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ProductProvider()),
-        ChangeNotifierProvider(create: (_) => UserProvider())
+        // ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => NEWProductProvider()),
+        ChangeNotifierProvider(create: (_) => VendorProductsProvider()),
       ],
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(

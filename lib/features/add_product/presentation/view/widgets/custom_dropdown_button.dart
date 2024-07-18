@@ -4,19 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 // ignore: must_be_immutable
-class CustomDropdown extends StatefulWidget {
-  CustomDropdown({super.key, this.value, required this.title, this.items});
+class CustomDropdown extends StatelessWidget {
+  const CustomDropdown({super.key, required this.child});
 
-  String? value;
-  final String title;
-  List<DropdownMenuItem<String>>? items;
-
-  @override
-  State<CustomDropdown> createState() => CustomDropdownState();
-}
-
-class CustomDropdownState extends State<CustomDropdown> {
-  // String? _yearValue;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,30 +18,7 @@ class CustomDropdownState extends State<CustomDropdown> {
           border: Border.all(
             color: AppColor.kSilver.withOpacity(.2),
           )),
-      child: DropdownButton(
-        isExpanded: true,
-
-        underline: const SizedBox(),
-        icon: const Icon(IconlyLight.arrow_down_2),
-        dropdownColor: Colors.white,
-        // value: _yearValue,
-        value: widget.value,
-        hint: Text(
-          widget.value ?? widget.title.tr(context),
-          style: const TextStyle(
-            color: AppColor.kSilver,
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        // items: YearProvider.yearDropDownList,
-        items: widget.items,
-        onChanged: (value) {
-          setState(() {
-            widget.value = value;
-          });
-        },
-      ),
+      child: child,
     );
   }
 }

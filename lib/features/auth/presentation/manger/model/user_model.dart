@@ -10,9 +10,10 @@ class UserModel with ChangeNotifier {
       image,
       companyType;
   final Timestamp createdAt;
-  final List products;
+  final List<dynamic> products, myOrders;
 
   UserModel({
+    required this.myOrders,
     required this.vendorName,
     required this.vendorId,
     required this.vendorEmail,

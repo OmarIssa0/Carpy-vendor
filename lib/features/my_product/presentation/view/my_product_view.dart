@@ -1,3 +1,4 @@
+import 'package:car_vendor/core/utils/animation_nav.dart';
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/widgets/adaptive_layout_widgets.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
@@ -21,7 +22,9 @@ class MyProductView extends StatelessWidget {
         backgroundColor: AppColor.kBackGroundColorSplash,
         onPressed: () {
           // Navigator.pushNamed(context, AddProductsView.routeName);
-          Navigator.pushNamed(context, MarkerView.routeName);
+          // Navigator.pushNamed(context, MarkerView.routeName);
+          Navigator.push(context,
+              AnimationNav.addingProductsButton(child: const MarkerView()));
         },
         child: const Icon(Icons.add, color: Colors.white),
       ),

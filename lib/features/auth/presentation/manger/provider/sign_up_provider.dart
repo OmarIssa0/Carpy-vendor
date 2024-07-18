@@ -47,7 +47,7 @@ class SignUpProvider with ChangeNotifier {
   Future<void> signUpFun(BuildContext context) async {
     final isValid = formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    if (companyType == null) {
+    if (companyType == null || companyType!.isEmpty) {
       AlertDialogMethods.showError(
         context: context,
         titleBottom: 'Ok',
@@ -57,6 +57,7 @@ class SignUpProvider with ChangeNotifier {
           Navigator.of(context).pop();
         },
       );
+      return;
     } else if (image == null) {
       AlertDialogMethods.showError(
         context: context,
@@ -67,6 +68,7 @@ class SignUpProvider with ChangeNotifier {
           Navigator.of(context).pop();
         },
       );
+      return;
     }
 
     if (isValid) {
@@ -96,6 +98,7 @@ class SignUpProvider with ChangeNotifier {
           "phoneNumber": phoneNumberController.text.trim(),
           "companyType": companyType,
           "products": [],
+          "myOrders": [],
           "location": "",
           "createdAt": Timestamp.now(),
         });

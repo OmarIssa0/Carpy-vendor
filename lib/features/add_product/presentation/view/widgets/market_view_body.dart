@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:car_vendor/core/constant/my_const.dart';
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
@@ -11,226 +9,73 @@ import 'package:car_vendor/features/add_product/presentation/view/widgets/custom
 import 'package:car_vendor/features/add_product/presentation/view/widgets/switch_reseration.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/text_form_field_description.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/upload_image_button.dart';
-import 'package:car_vendor/features/auth/presentation/manger/model/user_model.dart';
+import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
 import 'package:car_vendor/loading_manger.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 class MarketViewBody extends StatefulWidget {
   const MarketViewBody({super.key, this.productsModel});
 
   final ProductsModel? productsModel;
-  // final UserModel? userModel;
   @override
   State<MarketViewBody> createState() => _MarketViewBodyState();
 }
 
 class _MarketViewBodyState extends State<MarketViewBody> {
-  List productNetworkImage = [];
-  final _key = GlobalKey<FormState>();
-  bool isEditing = false;
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController discountController = TextEditingController();
+
+  final FocusNode productNameFocusNode = FocusNode();
+  final FocusNode priceFocusNode = FocusNode();
+  final FocusNode descriptionFocusNode = FocusNode();
+  final FocusNode locationFocusNode = FocusNode();
+  final FocusNode discountFocusNode = FocusNode();
+
   String? _categoryValue;
   String? _modelValue;
-  bool isLoading = false;
-
-  late TextEditingController productNameController,
-      priceController,
-      descriptionController,
-      locationController,
-      discountController;
-
-  late final FocusNode productNameFocusNode,
-      priceFocusNode,
-      descriptionFocusNode,
-      locationFocusNode,
-      discountFocusNode;
-
-  List<XFile> selectedImages = [];
-  UserModel? userModel;
-  User? user = FirebaseAuth.instance.currentUser;
-  Future<void> fetchUserInfo() async {
-    if (user == null) {
-      setState(() {
-        isLoading = false;
-      });
-      return;
-    }
-
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    try {
-      userModel = await userProvider.getUser();
-    } catch (error) {
-      if (!mounted) return;
-      await AlertDialogMethods.showError(
-        context: context,
-        subtitle: "An error has been occured".tr(context),
-        titleBottom: "Ok",
-        lottileAnimation: Assets.imagesErrorMas,
-        function: () {
-          Navigator.of(context).pop();
-        },
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  Future<void> pickImages() async {
-    List<XFile>? result = await ImagePicker().pickMultiImage();
-    selectedImages = result;
-    setState(() {});
-  }
-
-  Future<List<String>> uploadImagesToFirebaseStorage(List<XFile> images) async {
-    setState(() {
-      isLoading = true;
-    });
-    final storage = firebase_storage.FirebaseStorage.instance;
-    List<String> downloadURLs = [];
-
-    for (int i = 0; i < images.length; i++) {
-      final imagePath = 'images/image_$i.jpg';
-      final imageFile = File(images[i].path);
-      final task = storage.ref().child(imagePath).putFile(imageFile);
-
-      await task.whenComplete(() async {
-        final downloadURL = await task.snapshot.ref.getDownloadURL();
-        downloadURLs.add(downloadURL);
-      });
-    }
-
-    return downloadURLs;
-  }
-
-  Future<void> storeImageUrlsInFirestore(List<String> downloadURLs) async {
-    final firestore = FirebaseFirestore.instance;
-
-    final productID = const Uuid().v4();
-    // Replace 'images' with your desired collection name
-    final collectionRef = firestore.collection('product');
-
-    final doucumentRef = await collectionRef.add({
-      'productId': productID,
-      'productTitle': productNameController.text,
-      'productPrice': priceController.text,
-      'productDescription': descriptionController.text,
-      'productCategory': _categoryValue,
-      'isSwitchReservation': widget.productsModel?.isSwitchReservation ?? false,
-      'discount': discountController.text,
-      'productImage': downloadURLs,
-      'model': _modelValue,
-      'createdAt': Timestamp.now(),
-      'location': locationController.text,
-      'imageCompany': userModel?.image ?? "",
-      'userId': userModel!.vendorId,
-      'companyName': userModel!.vendorName,
-      'phoneNumber': userModel!.phoneNumber,
-    });
-    // await doucumentRef.update({
-    //   'createdAt': FieldValue.serverTimestamp(),
-    // });
-    final usersDB = FirebaseFirestore.instance.collection("vendors");
-    final auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser;
-    final uid = user!.uid;
-    // final vendorId = const Uuid().v4();
-    try {
-      await usersDB.doc(uid).update({
-        "products": FieldValue.arrayUnion([
-          {
-            'productId': productID,
-            'productTitle': productNameController.text,
-            'productPrice': priceController.text,
-            'productDescription': descriptionController.text,
-            'productCategory': _categoryValue,
-            'isSwitchReservation':
-                widget.productsModel?.isSwitchReservation ?? false,
-            'discount': discountController.text,
-            'productImage': downloadURLs,
-            'model': _modelValue,
-            'createdAt': Timestamp.now(),
-            'location': locationController.text,
-            'imageCompany': userModel?.image ?? "",
-            'userId': userModel!.vendorId,
-            'companyName': userModel!.vendorName,
-            'phoneNumber': userModel!.phoneNumber,
-          }
-        ]),
-      });
-      Fluttertoast.showToast(msg: "Item has been added successfully");
-    } catch (e) {
-      print(e);
-    }
-    setState(() {
-      isLoading = false;
-    });
-    print('Image URLs stored in Firestore!');
-  }
+  bool isSwitchReservation = false;
+  List productNetworkImage = [];
+  bool isEditing = false;
 
   @override
   void initState() {
-    fetchUserInfo();
-    if (widget.productsModel != null) {
-      productNetworkImage = widget.productsModel!.imagesProduct;
-    }
+    super.initState();
+    Provider.of<UserProvider>(context, listen: false).getUser();
+
     if (widget.productsModel != null) {
       isEditing = true;
+    }
+    if (widget.productsModel != null) {
+      productNetworkImage = widget.productsModel!.imagesProduct;
+      productNameController.text = widget.productsModel!.nameProduct ?? "";
+      priceController.text = widget.productsModel!.priceProduct ?? "";
+      descriptionController.text =
+          widget.productsModel!.descriptionProduct ?? "";
+      locationController.text = widget.productsModel!.locationVendor ?? "";
+      discountController.text = widget.productsModel!.discount ?? "";
       _categoryValue = widget.productsModel!.categoryProduct;
       _modelValue = widget.productsModel!.modelProduct;
+      isSwitchReservation = widget.productsModel!.isSwitchReservation;
     }
-    productNameController =
-        TextEditingController(text: widget.productsModel?.nameProduct);
-    priceController =
-        TextEditingController(text: widget.productsModel?.priceProduct);
-    descriptionController =
-        TextEditingController(text: widget.productsModel?.descriptionProduct);
-    locationController =
-        TextEditingController(text: widget.productsModel?.locationVendor);
-    discountController =
-        TextEditingController(text: widget.productsModel?.discount);
-
-    productNameFocusNode = FocusNode();
-    priceFocusNode = FocusNode();
-    descriptionFocusNode = FocusNode();
-    locationFocusNode = FocusNode();
-    discountFocusNode = FocusNode();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    productNameController.dispose();
-    priceController.dispose();
-    descriptionController.dispose();
-    locationController.dispose();
-    discountController.dispose();
-
-    productNameFocusNode.dispose();
-    priceFocusNode.dispose();
-    descriptionFocusNode.dispose();
-    locationFocusNode.dispose();
-    discountFocusNode.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<NEWProductProvider>(context);
+    // final userProvider = Provider.of<UserProvider>(context);
     return LoadingMangerView(
-      isLoading: isLoading,
+      isLoading: productProvider.isLoading,
       child: Form(
-        key: _key,
+        key: _formKey,
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
@@ -245,9 +90,9 @@ class _MarketViewBodyState extends State<MarketViewBody> {
               children: [
                 UploadImageButton(
                   productNetworkImages: productNetworkImage,
-                  selectedImages: selectedImages,
+                  selectedImages: productProvider.selectedImages,
                   onTap: () {
-                    pickImages();
+                    productProvider.pickImages();
                   },
                 ),
                 const Divider(
@@ -278,7 +123,6 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      // child: BrandDropdownButton(),
                       child: CustomTextFiled(
                           controller: discountController,
                           key: const ValueKey("Discount"),
@@ -292,12 +136,30 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                 Row(
                   children: [
                     Expanded(
-                      // child: YearDropdownButton(),
                       child: CustomDropdown(
-                        key: const ValueKey("Model"),
-                        title: "Model",
-                        value: _modelValue,
-                        items: YearProvider.yearDropDownList,
+                        child: DropdownButton(
+                          isExpanded: true,
+                          underline: const SizedBox(),
+                          icon: const Icon(IconlyLight.arrow_down_2),
+                          dropdownColor: Colors.white,
+                          // value: _yearValue,
+                          value: _modelValue,
+                          hint: Text(
+                            _modelValue ?? "Model".tr(context),
+                            style: const TextStyle(
+                              color: AppColor.kSilver,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          // items: YearProvider.yearDropDownList,
+                          items: YearProvider.yearDropDownList,
+                          onChanged: (value) {
+                            setState(() {
+                              _modelValue = value;
+                            });
+                          },
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -316,10 +178,29 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                 ),
                 const SizedBox(height: 15),
                 CustomDropdown(
-                  key: const ValueKey("Brand"),
-                  title: "brand",
-                  value: _categoryValue,
-                  items: AppConstants.brandDropDownList(),
+                  child: DropdownButton(
+                    isExpanded: true,
+                    underline: const SizedBox(),
+                    icon: const Icon(IconlyLight.arrow_down_2),
+                    dropdownColor: Colors.white,
+                    // value: _yearValue,
+                    value: _categoryValue,
+                    hint: Text(
+                      _categoryValue ?? "Model".tr(context),
+                      style: const TextStyle(
+                        color: AppColor.kSilver,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    // items: YearProvider.yearDropDownList,
+                    items: AppConstants.brandDropDownList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _categoryValue = value;
+                      });
+                    },
+                  ),
                 ),
                 const SizedBox(height: 15),
                 TextFormFieldDescription(
@@ -327,42 +208,94 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                   key: const ValueKey("Description"),
                   descriptionFocusNode: descriptionFocusNode,
                 ),
-                // const SizedBox(height: 45),
                 const SizedBox(height: 15),
                 SwitchReservation(
                   productModel: widget.productsModel,
                 ),
                 const SizedBox(height: 15),
-                CustomButton(
-                  title: isEditing
-                      ? "Edit product".tr(context)
-                      : "Add Product".tr(context),
-                  onPressed: () async {
-                    if (productNameController.text.isEmpty ||
-                        descriptionController.text.isEmpty ||
-                        priceController.text.isEmpty ||
-                        locationController.text.isEmpty ||
-                        discountController.text.isEmpty ||
-                        selectedImages.isEmpty ||
-                        _categoryValue == null ||
-                        _modelValue == null) {
-                      if (!mounted) return;
-                      await AlertDialogMethods.showError(
-                        context: context,
-                        subtitle: "Please fill all fields".tr(context),
-                        titleBottom: "Ok",
-                        lottileAnimation: Assets.imagesErrorMas,
-                        function: () {
-                          Navigator.of(context).pop();
+                isEditing
+                    ? CustomButton(
+                        title: "Delete Product".tr(context),
+                        onPressed: () async {
+                          // if (productNameController.text.isEmpty ||
+                          //     descriptionController.text.isEmpty ||
+                          //     priceController.text.isEmpty ||
+                          //     locationController.text.isEmpty ||
+                          //     discountController.text.isEmpty ||
+                          //     // productProvider.selectedImages.isEmpty ||
+                          //     _categoryValue == null ||
+                          //     _modelValue == null) {
+                          //   if (!mounted) return;
+                          //   await AlertDialogMethods.showError(
+                          //     context: context,
+                          //     subtitle: "Please fill all fields".tr(context),
+                          //     titleBottom: "Ok",
+                          //     lottileAnimation: Assets.imagesErrorMas,
+                          //     function: () {
+                          //       Navigator.of(context).pop();
+                          //     },
+                          //   );
+                          // } else {
+                          //   List<String> downloadURLs = await productProvider
+                          //       .uploadImagesToFirebaseStorage();
+                          //   await productProvider.updateProductInFirestore(
+                          //     context,
+                          //     widget.productsModel!.productsId,
+                          //     downloadURLs,
+                          //     productNameController,
+                          //     priceController,
+                          //     descriptionController,
+                          //     locationController,
+                          //     discountController,
+                          //     _categoryValue,
+                          //     _modelValue,
+                          //     isSwitchReservation,
+                          //     widget.productsModel?.imagesProduct.cast<String>(),
+                          //   );
+                          // }
+                          productProvider.deleteProductFromFirestore(
+                              context, widget.productsModel!.productsId);
                         },
-                      );
-                    } else {
-                      List<String> downloadURLs =
-                          await uploadImagesToFirebaseStorage(selectedImages);
-                      await storeImageUrlsInFirestore(downloadURLs);
-                    }
-                  },
-                ),
+                      )
+                    : CustomButton(
+                        title: "Add Product".tr(context),
+                        onPressed: () async {
+                          if (productNameController.text.isEmpty ||
+                              descriptionController.text.isEmpty ||
+                              priceController.text.isEmpty ||
+                              locationController.text.isEmpty ||
+                              discountController.text.isEmpty ||
+                              // productProvider.selectedImages.isEmpty ||
+                              _categoryValue == null ||
+                              _modelValue == null) {
+                            if (!mounted) return;
+                            await AlertDialogMethods.showError(
+                              context: context,
+                              subtitle: "Please fill all fields".tr(context),
+                              titleBottom: "Ok",
+                              lottileAnimation: Assets.imagesErrorMas,
+                              function: () {
+                                Navigator.of(context).pop();
+                              },
+                            );
+                          } else {
+                            List<String> downloadURLs = await productProvider
+                                .uploadImagesToFirebaseStorage();
+                            await productProvider.storeImageUrlsInFirestore(
+                              context,
+                              downloadURLs,
+                              productNameController,
+                              priceController,
+                              descriptionController,
+                              locationController,
+                              discountController,
+                              _categoryValue,
+                              _modelValue,
+                              isSwitchReservation,
+                            );
+                          }
+                        },
+                      ),
                 const SizedBox(height: 45),
               ],
             ),

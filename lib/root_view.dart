@@ -5,6 +5,7 @@ import 'package:car_vendor/features/auth/presentation/manger/provider/user_provi
 import 'package:car_vendor/features/home/presentation/view/home_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/my_product/presentation/view/my_product_view.dart';
+import 'package:car_vendor/features/my_product/presentation/view_model/provider/my_products_provider.dart';
 import 'package:car_vendor/features/profile/presentation/view/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -37,9 +38,12 @@ class _RootViewState extends State<RootView> {
 
   Future<void> fetchData() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final myProducts =
+        Provider.of<VendorProductsProvider>(context, listen: false);
     try {
       Future.wait({
         userProvider.getUser(),
+        myProducts.fetchMyProducts(),
       });
     } catch (e) {
       log(e.toString());
@@ -48,6 +52,14 @@ class _RootViewState extends State<RootView> {
         isLoading = false;
       });
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (isLoading) {
+      fetchData();
+    }
+    super.didChangeDependencies();
   }
 
   @override
