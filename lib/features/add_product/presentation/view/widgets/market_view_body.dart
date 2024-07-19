@@ -1,6 +1,7 @@
 import 'package:car_vendor/core/constant/my_const.dart';
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
+import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/core/utils/size_config.dart';
 import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/core/widgets/custom_button.dart';
@@ -39,12 +40,18 @@ class _MarketViewBodyState extends State<MarketViewBody> {
   final FocusNode descriptionFocusNode = FocusNode();
   final FocusNode locationFocusNode = FocusNode();
   final FocusNode discountFocusNode = FocusNode();
+  final FocusNode modelFocusNode = FocusNode();
+  final FocusNode brandFocusNode = FocusNode();
+  final FocusNode switchReservationFocusNode = FocusNode();
 
   String? _categoryValue;
   String? _modelValue;
-  bool isSwitchReservation = false;
+  // bool isSwitchReservation = false;
   List productNetworkImage = [];
   bool isEditing = false;
+  bool isReservation = false;
+
+  NEWProductProvider? _provider;
 
   @override
   void initState() {
@@ -64,8 +71,42 @@ class _MarketViewBodyState extends State<MarketViewBody> {
       discountController.text = widget.productsModel!.discount ?? "";
       _categoryValue = widget.productsModel!.categoryProduct;
       _modelValue = widget.productsModel!.modelProduct;
-      isSwitchReservation = widget.productsModel!.isSwitchReservation;
+      isReservation = widget.productsModel!.isSwitchReservation;
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _provider ??= Provider.of<NEWProductProvider>(context, listen: false);
+  }
+
+  @override
+  void dispose() {
+    // final productProvider =
+    //     Provider.of<NEWProductProvider>(context, listen: false);
+    productNameController.dispose();
+    priceController.dispose();
+    descriptionController.dispose();
+    locationController.dispose();
+    discountController.dispose();
+    modelFocusNode.dispose();
+
+    productNameFocusNode.dispose();
+    priceFocusNode.dispose();
+    descriptionFocusNode.dispose();
+    locationFocusNode.dispose();
+    discountFocusNode.dispose();
+    switchReservationFocusNode.dispose();
+
+    brandFocusNode.dispose();
+    productNetworkImage.clear();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _provider?.clearImages();
+    });
+
+    super.dispose();
   }
 
   @override
@@ -103,32 +144,49 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                   indent: 16,
                 ),
                 CustomTextFiled(
+                  readOnly: isEditing,
                   key: const ValueKey("Product Name"),
                   controller: productNameController,
                   focusNode: productNameFocusNode,
                   title: "Product Name".tr(context),
                   textInputType: TextInputType.name,
                   textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).requestFocus(priceFocusNode);
+                  },
                 ),
                 const SizedBox(height: 15),
                 Row(
                   children: [
                     Expanded(
                       child: CustomTextFiled(
-                          key: const ValueKey("Price"),
-                          controller: priceController,
-                          focusNode: priceFocusNode,
-                          title: "Price".tr(context),
-                          textInputType: TextInputType.number),
+                        textInputAction: TextInputAction.next,
+                        readOnly: isEditing,
+                        key: const ValueKey("Price"),
+                        controller: priceController,
+                        focusNode: priceFocusNode,
+                        title: "Price".tr(context),
+                        textInputType: TextInputType.number,
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context)
+                              .requestFocus(discountFocusNode);
+                        },
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: CustomTextFiled(
-                          controller: discountController,
-                          key: const ValueKey("Discount"),
-                          focusNode: discountFocusNode,
-                          title: "Discount".tr(context),
-                          textInputType: TextInputType.number),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).requestFocus(modelFocusNode);
+                        },
+                        readOnly: isEditing,
+                        controller: discountController,
+                        key: const ValueKey("Price before discount"),
+                        focusNode: discountFocusNode,
+                        title: "Price before discount".tr(context),
+                        textInputType: TextInputType.number,
+                      ),
                     ),
                   ],
                 ),
@@ -138,11 +196,12 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     Expanded(
                       child: CustomDropdown(
                         child: DropdownButton(
+                          focusNode: modelFocusNode,
                           isExpanded: true,
                           underline: const SizedBox(),
                           icon: const Icon(IconlyLight.arrow_down_2),
                           dropdownColor: Colors.white,
-                          // value: _yearValue,
+
                           value: _modelValue,
                           hint: Text(
                             _modelValue ?? "Model".tr(context),
@@ -165,6 +224,11 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: CustomTextFiled(
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).requestFocus(brandFocusNode);
+                        },
+                        readOnly: isEditing,
                         controller: locationController,
                         key: const ValueKey("Location"),
                         focusNode: locationFocusNode,
@@ -179,6 +243,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                 const SizedBox(height: 15),
                 CustomDropdown(
                   child: DropdownButton(
+                    focusNode: brandFocusNode,
                     isExpanded: true,
                     underline: const SizedBox(),
                     icon: const Icon(IconlyLight.arrow_down_2),
@@ -186,7 +251,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     // value: _yearValue,
                     value: _categoryValue,
                     hint: Text(
-                      _categoryValue ?? "Model".tr(context),
+                      _categoryValue ?? "brand".tr(context),
                       style: const TextStyle(
                         color: AppColor.kSilver,
                         fontSize: 13,
@@ -204,57 +269,59 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                 ),
                 const SizedBox(height: 15),
                 TextFormFieldDescription(
+                  onFieldSubmitted: (p0) {
+                    FocusScope.of(context)
+                        .requestFocus(switchReservationFocusNode);
+                  },
+                  readOnly: isEditing,
                   descriptionController: descriptionController,
                   key: const ValueKey("Description"),
                   descriptionFocusNode: descriptionFocusNode,
                 ),
                 const SizedBox(height: 15),
-                SwitchReservation(
-                  productModel: widget.productsModel,
+                // SwitchReservation(
+                //   productModel: widget.productsModel,
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Add a reservation'.tr(context),
+                      style: AppStyles.semiBold16,
+                    ),
+                    Switch(
+                      focusNode: switchReservationFocusNode,
+                      activeTrackColor: Colors.green,
+                      inactiveThumbColor: Colors.white,
+                      inactiveTrackColor: Colors.red,
+                      value: isReservation,
+                      onChanged: (value) {
+                        setState(() {
+                          isReservation = value;
+                        });
+                      },
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 15),
                 isEditing
                     ? CustomButton(
                         title: "Delete Product".tr(context),
                         onPressed: () async {
-                          // if (productNameController.text.isEmpty ||
-                          //     descriptionController.text.isEmpty ||
-                          //     priceController.text.isEmpty ||
-                          //     locationController.text.isEmpty ||
-                          //     discountController.text.isEmpty ||
-                          //     // productProvider.selectedImages.isEmpty ||
-                          //     _categoryValue == null ||
-                          //     _modelValue == null) {
-                          //   if (!mounted) return;
-                          //   await AlertDialogMethods.showError(
-                          //     context: context,
-                          //     subtitle: "Please fill all fields".tr(context),
-                          //     titleBottom: "Ok",
-                          //     lottileAnimation: Assets.imagesErrorMas,
-                          //     function: () {
-                          //       Navigator.of(context).pop();
-                          //     },
-                          //   );
-                          // } else {
-                          //   List<String> downloadURLs = await productProvider
-                          //       .uploadImagesToFirebaseStorage();
-                          //   await productProvider.updateProductInFirestore(
-                          //     context,
-                          //     widget.productsModel!.productsId,
-                          //     downloadURLs,
-                          //     productNameController,
-                          //     priceController,
-                          //     descriptionController,
-                          //     locationController,
-                          //     discountController,
-                          //     _categoryValue,
-                          //     _modelValue,
-                          //     isSwitchReservation,
-                          //     widget.productsModel?.imagesProduct.cast<String>(),
-                          //   );
-                          // }
-                          productProvider.deleteProductFromFirestore(
-                              context, widget.productsModel!.productsId);
+                          AlertDialogMethods.showDialogWaring(
+                            context: context,
+                            isError: false,
+                            subtitle: "Do you want to delete this product"
+                                .tr(context),
+                            titleBottom: "Delete".tr(context),
+                            lottileAnimation: Assets.imagesDelete,
+                            function: () {
+                              productProvider.deleteProductFromFirestore(
+                                  context, widget.productsModel!.productsId);
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                          );
                         },
                       )
                     : CustomButton(
@@ -264,7 +331,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                               descriptionController.text.isEmpty ||
                               priceController.text.isEmpty ||
                               locationController.text.isEmpty ||
-                              discountController.text.isEmpty ||
+                              // discountController.text.isEmpty ||
                               // productProvider.selectedImages.isEmpty ||
                               _categoryValue == null ||
                               _modelValue == null) {
@@ -282,6 +349,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                             List<String> downloadURLs = await productProvider
                                 .uploadImagesToFirebaseStorage();
                             await productProvider.storeImageUrlsInFirestore(
+                              // ignore: use_build_context_synchronously
                               context,
                               downloadURLs,
                               productNameController,
@@ -291,7 +359,27 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                               discountController,
                               _categoryValue,
                               _modelValue,
-                              isSwitchReservation,
+                              isReservation,
+                            );
+                            productNameController.clear();
+                            priceController.clear();
+                            descriptionController.clear();
+                            locationController.clear();
+                            discountController.clear();
+                            _modelValue = null;
+                            locationController.clear();
+                            _categoryValue = null;
+                            productNetworkImage.clear();
+                            productProvider.selectedImages.clear();
+                            if (!context.mounted) return;
+                            AlertDialogMethods.showDialogForgotPassword(
+                              context: context,
+                              subtitle: "Add product successfully".tr(context),
+                              titleBottom: "OK",
+                              lottileAnimation: Assets.imagesDone,
+                              function: () {
+                                Navigator.of(context).pop();
+                              },
                             );
                           }
                         },

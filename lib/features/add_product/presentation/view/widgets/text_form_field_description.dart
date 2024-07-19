@@ -7,19 +7,28 @@ class TextFormFieldDescription extends StatelessWidget {
     super.key,
     required this.descriptionController,
     required this.descriptionFocusNode,
+    this.readOnly = false,
+    this.onFieldSubmitted,
     // required this.descriptionController,
   });
   final TextEditingController descriptionController;
   final FocusNode descriptionFocusNode;
+  final bool readOnly;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: descriptionFocusNode,
+      readOnly: readOnly,
       controller: descriptionController,
       minLines: 5,
       maxLines: 8,
       maxLength: 1000,
       textCapitalization: TextCapitalization.sentences,
+      onFieldSubmitted: onFieldSubmitted,
+      keyboardType: TextInputType.multiline,
+      textInputAction: TextInputAction.newline,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,

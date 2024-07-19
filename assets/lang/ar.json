@@ -111,5 +111,10 @@
     "Please select company type": "الرجاء أختيار نوع الشركة",
     "Please select image": "الرجاء أختيار صورة",
     "Please fill all fields": "الرجاء أملأ جميع الحقول",
-    "Delete Product": "حذف المنتج"
+    "Delete Product": "حذف المنتج",
+    "No Products Found": "لا يوجد منتجات",
+    "Do you want to delete this product": "هل تريد حذف هذا المنتج؟",
+    "Delete": "حذف",
+    "Add product successfully": "تمت الاضافة بنجاح",
+    "Price before discount": "السعر قبل الخصم"
 }

@@ -37,13 +37,14 @@ class ItemProductsVendor extends StatelessWidget {
         //     :
         Column(
       children: [
-        GestureDetector(
+        InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => MarkerView(
                   productsModel: getCurrentProduct,
+                  // productsModel: getCurrentProduct,
                   // userModel: userModel,
                 ),
               ),

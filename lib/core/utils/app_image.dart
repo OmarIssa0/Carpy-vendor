@@ -13,6 +13,14 @@ class Assets {
   /// assets/images/ContactDealer.png
   static const String imagesContactDealer = "assets/images/ContactDealer.png";
 
+  /// Assets for imagesDelete
+  /// assets/images/delete.json
+  static const String imagesDelete = "assets/images/delete.json";
+
+  /// Assets for imagesDone
+  /// assets/images/done.json
+  static const String imagesDone = "assets/images/done.json";
+
   /// Assets for imagesEMI
   /// assets/images/EMI.png
   static const String imagesEMI = "assets/images/EMI.png";
