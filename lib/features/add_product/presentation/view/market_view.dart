@@ -26,7 +26,7 @@ class MarkerView extends StatelessWidget {
           ),
         ),
         title: Text(
-          'market'.tr(context),
+          'Add product'.tr(context),
           style: AppStyles.semiBold22.copyWith(
             color: AppColor.kBackGroundColorSplash,
           ),

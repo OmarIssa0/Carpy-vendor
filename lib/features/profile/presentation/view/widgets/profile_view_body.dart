@@ -85,7 +85,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody>
               children: [
                 userModel?.image == null
                     ? const CircleAvatar(
-                        backgroundImage: AssetImage(Assets.imagesIconApp))
+                        backgroundImage: AssetImage(Assets.imagesSplachImage))
                     : Container(
                         height: 60,
                         width: 60,

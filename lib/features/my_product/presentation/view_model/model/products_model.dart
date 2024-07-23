@@ -12,7 +12,7 @@ class ProductsModel extends ChangeNotifier {
       productsId,
       imageCompany,
       userId;
-  final String? locationVendor, discount;
+  final String? locationVendor, discount, categoryTypeAd;
   List<dynamic> imagesProduct;
   // List<dynamic> productsVendor;
   bool isSwitchReservation = false;
@@ -30,6 +30,7 @@ class ProductsModel extends ChangeNotifier {
     required this.modelProduct,
     required this.categoryProduct,
     required this.imagesProduct,
+    required this.categoryTypeAd,
     // required this.productsVendor,
     required this.isSwitchReservation,
     this.locationVendor,
@@ -53,6 +54,7 @@ class ProductsModel extends ChangeNotifier {
       isSwitchReservation: data['isSwitchReservation'],
       locationVendor: data['location'],
       discount: data['discount'],
+      categoryTypeAd: data['categoryTypeAd'],
     );
   }
   // factory ProductsModel.fromFirebase(DocumentSnapshot doc) {

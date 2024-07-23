@@ -1,7 +1,4 @@
-import 'package:car_vendor/core/cache/cache_helper.dart';
-import 'package:car_vendor/core/service/service_locator.dart';
 import 'package:car_vendor/core/utils/theme.dart';
-import 'package:car_vendor/features/add_product/presentation/view/add_products_view.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
 import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
@@ -14,7 +11,6 @@ import 'package:car_vendor/features/lang/cubit/locale_cubit.dart';
 import 'package:car_vendor/features/my_product/presentation/view/my_product_view.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/provider/my_products_provider.dart';
-import 'package:car_vendor/features/my_product/presentation/view_model/provider/product_provider.dart';
 import 'package:car_vendor/features/profile/presentation/view/profile_view.dart';
 import 'package:car_vendor/features/settings/presentation/view/settings_view.dart';
 import 'package:car_vendor/features/splash/presentation/view/splash_view.dart';
@@ -30,13 +26,14 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     // DeviceOrientation.portraitDown,
   ]);
   // WidgetsFlutterBinding.ensureInitialized();
-  setupServiceLocator();
-  await getIt<CacheHelper>().init();
+  // setupServiceLocator();
+  // await getIt<CacheHelper>().init();
 
   runApp(
     MultiBlocProvider(
@@ -94,8 +91,6 @@ class CarVendor extends StatelessWidget {
                   RootView.routeName: (context) => const RootView(),
                   HomeView.routeName: (context) => const HomeView(),
                   SettingsView.routeName: (context) => const SettingsView(),
-                  AddProductsView.routeName: (context) =>
-                      const AddProductsView(),
                   MarkerView.routeName: (context) => const MarkerView(),
                   ProfileView.routeName: (context) => const ProfileView(),
                   MyProductView.routeName: (context) => const MyProductView(),

@@ -48,6 +48,7 @@ class VendorProductsProvider with ChangeNotifier {
           imageCompany: product['imageCompany'],
           companyName: product['companyName'],
           phoneNumberVendor: product['phoneNumber'],
+          categoryTypeAd: product['categoryTypeAd'],
         );
       }
       notifyListeners();

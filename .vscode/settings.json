@@ -3,5 +3,6 @@
         "Firestore",
         "lottile",
         "reuslt"
-    ]
+    ],
+    "cmake.ignoreCMakeListsMissing": true
 }

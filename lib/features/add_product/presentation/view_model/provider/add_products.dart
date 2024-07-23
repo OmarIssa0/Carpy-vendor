@@ -25,16 +25,16 @@ class NEWProductProvider with ChangeNotifier {
     _selectedImages = [];
     notifyListeners();
   }
-void clearImagesWithoutNotify() {
+
+  void clearImagesWithoutNotify() {
     _selectedImages = [];
   }
 
   @override
   void dispose() {
-    clearImagesWithoutNotify(); 
+    clearImagesWithoutNotify();
     super.dispose();
   }
-
 
   Future<List<String>> uploadImagesToFirebaseStorage() async {
     _isLoading = true;
@@ -62,16 +62,18 @@ void clearImagesWithoutNotify() {
   }
 
   Future<void> storeImageUrlsInFirestore(
-      BuildContext context,
-      List<String> downloadURLs,
-      TextEditingController productNameController,
-      TextEditingController priceController,
-      TextEditingController descriptionController,
-      TextEditingController locationController,
-      TextEditingController discountController,
-      String? categoryValue,
-      String? modelValue,
-      bool isSwitchReservation) async {
+    BuildContext context,
+    List<String> downloadURLs,
+    TextEditingController productNameController,
+    TextEditingController priceController,
+    TextEditingController descriptionController,
+    TextEditingController locationController,
+    TextEditingController discountController,
+    String? categoryValue,
+    String? modelValue,
+    bool isSwitchReservation,
+    String? categoryTypeAd,
+  ) async {
     final firestore = FirebaseFirestore.instance;
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final userModel = userProvider.userModel;
@@ -88,6 +90,7 @@ void clearImagesWithoutNotify() {
         'productPrice': priceController.text,
         'productDescription': descriptionController.text,
         'productCategory': categoryValue,
+        "categoryTypeAd": categoryTypeAd,
         'isSwitchReservation': isSwitchReservation,
         'discount': discountController.text,
         'productImage': downloadURLs,
@@ -108,6 +111,7 @@ void clearImagesWithoutNotify() {
             'productPrice': priceController.text,
             'productDescription': descriptionController.text,
             'productCategory': categoryValue,
+            "categoryTypeAd": categoryTypeAd,
             'isSwitchReservation': isSwitchReservation,
             'discount': discountController.text,
             'productImage': downloadURLs,
@@ -141,6 +145,7 @@ void clearImagesWithoutNotify() {
     String? modelValue,
     bool isSwitchReservation,
     List<String>? oldDownloadURLs,
+    String? categoryTypeAd,
   ) async {
     final firestore = FirebaseFirestore.instance;
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -156,6 +161,7 @@ void clearImagesWithoutNotify() {
         'productPrice': priceController.text,
         'productDescription': descriptionController.text,
         'productCategory': categoryValue,
+        "categoryTypeAd": categoryTypeAd,
         'isSwitchReservation': isSwitchReservation,
         'discount': discountController.text,
         'productImage': downloadURLs ?? oldDownloadURLs,
@@ -191,6 +197,7 @@ void clearImagesWithoutNotify() {
             'productPrice': priceController.text,
             'productDescription': descriptionController.text,
             'productCategory': categoryValue,
+            "categoryTypeAd": categoryTypeAd,
             'isSwitchReservation': isSwitchReservation,
             'discount': discountController.text,
             'productImage': downloadURLs ?? oldDownloadURLs,

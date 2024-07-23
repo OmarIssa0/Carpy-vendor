@@ -1,6 +1,6 @@
 {
     "Login": "Login",
-    "Welcome to CarVendor": "Welcome to CarVendor",
+    "Welcome to Carpy vendor": "Welcome to Carpy vendor",
     "Email address": "Email address",
     "Password": "Password",
     "Forgot Password?": "Forgot Password?",
@@ -117,5 +117,7 @@
     "Delete": "Delete",
     "Add product successfully": "Add product successfully",
     "Price before discount": "Price before discount",
-    "No Orders": "No Orders"
+    "No Orders": "No Orders",
+    "Product category": "Product category",
+    "Add product": "Add product"
 }

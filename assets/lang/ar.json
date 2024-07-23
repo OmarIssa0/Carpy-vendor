@@ -1,6 +1,6 @@
 {
     "Login": "تسجيل الدخول",
-    "Welcome to CarVendor": " مرحبا بك في CarVendor",
+    "Welcome to Carpy vendor": " مرحبا بك في Carpy vendor",
     "Email address": "البريد الالكتروني",
     "Password": "كلمة المرور",
     "Forgot Password?": "نسيت كلمة المرور؟",
@@ -117,5 +117,7 @@
     "Delete": "حذف",
     "Add product successfully": "تمت الاضافة بنجاح",
     "Price before discount": "السعر قبل الخصم",
-    "No Orders": "لا يوجد طلبات"
+    "No Orders": "لا يوجد طلبات",
+    "Product category": "فئة المنتج",
+    "Add product": "اضافة منتج"
 }

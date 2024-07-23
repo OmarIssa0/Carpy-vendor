@@ -36,31 +36,31 @@ class _RootViewState extends State<RootView> {
     _controller = PageController(initialPage: currentScreen);
   }
 
-  // Future<void> fetchData() async {
-  //   final userProvider = Provider.of<UserProvider>(context, listen: false);
-  //   final myProducts =
-  //       Provider.of<VendorProductsProvider>(context, listen: false);
-  //   try {
-  //     Future.wait({
-  //       userProvider.getUser(),
-  //       myProducts.fetchMyProducts(),
-  //     });
-  //   } catch (e) {
-  //     log(e.toString());
-  //   } finally {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   }
-  // }
+  Future<void> fetchData() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final myProducts =
+        Provider.of<VendorProductsProvider>(context, listen: false);
+    try {
+      Future.wait({
+        userProvider.getUser(),
+        myProducts.fetchMyProducts(),
+      });
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
-  // @override
-  // void didChangeDependencies() {
-  //   if (isLoading) {
-  //     fetchData();
-  //   }
-  //   super.didChangeDependencies();
-  // }
+  @override
+  void didChangeDependencies() {
+    if (isLoading) {
+      fetchData();
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

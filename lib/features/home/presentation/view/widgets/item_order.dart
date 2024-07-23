@@ -29,15 +29,18 @@ class ItemOrder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: FancyShimmerImage(
-                  imageUrl: getCurrentProduct!.imagesProduct.first,
-                  height: size.height * .15,
-                  width: size.width * .32,
-                  boxFit: BoxFit.cover,
-                ),
-              ),
+              getCurrentProduct?.imagesProduct.first == null
+                  ? const SizedBox.shrink()
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: FancyShimmerImage(
+                        imageUrl: getCurrentProduct?.imagesProduct.first,
+                        height: size.height * .15,
+                        errorWidget: const Icon(Icons.error),
+                        width: size.width * .32,
+                        boxFit: BoxFit.cover,
+                      ),
+                    ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,7 +53,7 @@ class ItemOrder extends StatelessWidget {
                         child: Text(
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          getCurrentProduct.nameProduct,
+                          getCurrentProduct?.nameProduct ?? "",
                           style: AppStyles.regular14,
                           textAlign: TextAlign.end,
                         ),
@@ -61,7 +64,7 @@ class ItemOrder extends StatelessWidget {
                         child: Text(
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          getCurrentProduct.descriptionProduct,
+                          getCurrentProduct?.descriptionProduct ?? "",
                           style: AppStyles.regular14,
                           textAlign: TextAlign.end,
                         ),
@@ -93,7 +96,7 @@ class ItemOrder extends StatelessWidget {
                   SizedBox(
                     width: size.width * .45,
                     child: Text(
-                      getCurrentProduct.priceProduct.toString(),
+                      getCurrentProduct?.priceProduct.toString() ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: AppStyles.regular12,

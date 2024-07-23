@@ -19,44 +19,44 @@ class SplashViewBody extends StatefulWidget {
 
 class _SplashViewBodyState extends State<SplashViewBody> {
   @override
-  bool isLoading = true;
   @override
   void initState() {
     excuteNavigation();
     super.initState();
   }
+  // bool isLoading = true;
 
-  Future<void> fetchData() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final myProducts =
-        Provider.of<VendorProductsProvider>(context, listen: false);
-    try {
-      Future.wait({
-        userProvider.getUser(),
-        myProducts.fetchMyProducts(),
-      });
-    } catch (e) {
-      log(e.toString());
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
+  // Future<void> fetchData() async {
+  //   final userProvider = Provider.of<UserProvider>(context, listen: false);
+  //   final myProducts =
+  //       Provider.of<VendorProductsProvider>(context, listen: false);
+  //   try {
+  //     Future.wait({
+  //       userProvider.getUser(),
+  //       myProducts.fetchMyProducts(),
+  //     });
+  //   } catch (e) {
+  //     log(e.toString());
+  //   } finally {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
 
-  @override
-  void didChangeDependencies() {
-    if (isLoading) {
-      fetchData();
-    }
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   if (isLoading) {
+  //     fetchData();
+  //   }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Center(
         child: Image.asset(
-      Assets.imagesIconSplashView2,
+      Assets.imagesSplachImage,
       height: 150,
       fit: BoxFit.scaleDown,
     ));

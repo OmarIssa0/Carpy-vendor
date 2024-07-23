@@ -1,15 +1,13 @@
-import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/core/utils/size_config.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/home/presentation/view/widgets/item_order.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
-import 'package:car_vendor/features/my_product/presentation/view/widgets/item_products_vendor.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/provider/my_products_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -32,7 +30,7 @@ class HomeViewBody extends StatelessWidget {
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('vendors')
-              .where('vendorId', isEqualTo: userModel!.vendorId)
+              .where('vendorId', isEqualTo: userModel?.vendorId)
               .snapshots(),
           builder: (context, snapshot) {
             // if (snapshot.connectionState == ConnectionState.waiting) {
@@ -96,5 +94,14 @@ class HomeViewBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    // ignore: deprecated_member_use
+    await launch(launchUri.toString());
   }
 }

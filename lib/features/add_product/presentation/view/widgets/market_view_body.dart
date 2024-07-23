@@ -7,7 +7,6 @@ import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/core/widgets/custom_button.dart';
 import 'package:car_vendor/core/widgets/custom_text_filed.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/custom_dropdown_button.dart';
-import 'package:car_vendor/features/add_product/presentation/view/widgets/switch_reseration.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/text_form_field_description.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/upload_image_button.dart';
 import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
@@ -44,8 +43,9 @@ class _MarketViewBodyState extends State<MarketViewBody> {
   final FocusNode brandFocusNode = FocusNode();
   final FocusNode switchReservationFocusNode = FocusNode();
 
-  String? _categoryValue;
+  String? _brandCar;
   String? _modelValue;
+  String? _categoryAd;
   // bool isSwitchReservation = false;
   List productNetworkImage = [];
   bool isEditing = false;
@@ -69,8 +69,9 @@ class _MarketViewBodyState extends State<MarketViewBody> {
           widget.productsModel!.descriptionProduct ?? "";
       locationController.text = widget.productsModel!.locationVendor ?? "";
       discountController.text = widget.productsModel!.discount ?? "";
-      _categoryValue = widget.productsModel!.categoryProduct;
+      _brandCar = widget.productsModel!.categoryProduct;
       _modelValue = widget.productsModel!.modelProduct;
+      _categoryAd = widget.productsModel!.categoryTypeAd;
       isReservation = widget.productsModel!.isSwitchReservation;
     }
   }
@@ -207,7 +208,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                             _modelValue ?? "Model".tr(context),
                             style: const TextStyle(
                               color: AppColor.kSilver,
-                              fontSize: 13,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -249,20 +250,45 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     icon: const Icon(IconlyLight.arrow_down_2),
                     dropdownColor: Colors.white,
                     // value: _yearValue,
-                    value: _categoryValue,
+                    value: _brandCar,
                     hint: Text(
-                      _categoryValue ?? "brand".tr(context),
+                      _brandCar ?? "brand".tr(context),
                       style: const TextStyle(
                         color: AppColor.kSilver,
-                        fontSize: 13,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    // items: YearProvider.yearDropDownList,
+
                     items: AppConstants.brandDropDownList(),
                     onChanged: (value) {
                       setState(() {
-                        _categoryValue = value;
+                        _brandCar = value;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(height: 15),
+                CustomDropdown(
+                  child: DropdownButton(
+                    isExpanded: true,
+                    underline: const SizedBox(),
+                    icon: const Icon(IconlyLight.arrow_down_2),
+                    dropdownColor: Colors.white,
+                    // value: _yearValue,
+                    value: _categoryAd,
+                    hint: Text(
+                      _categoryAd ?? "Product category".tr(context),
+                      style: const TextStyle(
+                        color: AppColor.kSilver,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    items: AppConstants.categoryDropDownList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _categoryAd = value;
                       });
                     },
                   ),
@@ -279,9 +305,6 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                   descriptionFocusNode: descriptionFocusNode,
                 ),
                 const SizedBox(height: 15),
-                // SwitchReservation(
-                //   productModel: widget.productsModel,
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -333,8 +356,9 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                               locationController.text.isEmpty ||
                               // discountController.text.isEmpty ||
                               // productProvider.selectedImages.isEmpty ||
-                              _categoryValue == null ||
-                              _modelValue == null) {
+                              _brandCar == null ||
+                              _modelValue == null ||
+                              _categoryAd == null) {
                             if (!mounted) return;
                             await AlertDialogMethods.showError(
                               context: context,
@@ -357,9 +381,10 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                               descriptionController,
                               locationController,
                               discountController,
-                              _categoryValue,
+                              _brandCar,
                               _modelValue,
                               isReservation,
+                              _categoryAd,
                             );
                             productNameController.clear();
                             priceController.clear();
@@ -368,7 +393,8 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                             discountController.clear();
                             _modelValue = null;
                             locationController.clear();
-                            _categoryValue = null;
+                            _brandCar = null;
+                            _categoryAd = null;
                             productNetworkImage.clear();
                             productProvider.selectedImages.clear();
                             if (!context.mounted) return;

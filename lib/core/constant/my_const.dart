@@ -40,6 +40,19 @@ class AppConstants {
     "Volkswagen - فولكس واجن",
     "Volvo - فولفو",
   ];
+  static List<String> categoryList = [
+    // "قطع غيار",
+    // "اكسسوارات وتعديلات",
+    // "إطارات وعجلات",
+    // "زيوت وسوائل",
+    // "معدات الصيانة والتنظيف",
+    // "أنظمة الأمان",
+    // "التجهيزات الخارجية",
+    // "استئجار المركبات",
+    "اكسسوارات", "قطع غيار", "استئجار المركبات", "مركبات للبيع",
+    "تعبئة على الطريق", "زيوت وسوائل",
+    // "",
+  ];
 
   static List<DropdownMenuItem<String>> brandDropDownList() {
     List<DropdownMenuItem<String>> menuItem =
@@ -49,6 +62,20 @@ class AppConstants {
         value: brandList[index],
         child: Text(
           brandList[index],
+        ),
+      ),
+    );
+    return menuItem;
+  }
+
+  static List<DropdownMenuItem<String>> categoryDropDownList() {
+    List<DropdownMenuItem<String>> menuItem =
+        List<DropdownMenuItem<String>>.generate(
+      categoryList.length,
+      (index) => DropdownMenuItem(
+        value: categoryList[index],
+        child: Text(
+          categoryList[index],
         ),
       ),
     );
