@@ -23,12 +23,15 @@ class SignUpProvider with ChangeNotifier {
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
   late TextEditingController phoneNumberController;
+  late TextEditingController locationController;
 
   late FocusNode nameCompanyFocusNode;
   late FocusNode emailFocusNode;
   late FocusNode passwordFocusNode;
   late FocusNode confirmPasswordFocusNode;
   late FocusNode phoneNumberFocusNode;
+  late FocusNode locationFocusNode;
+
   final authFirebase = FirebaseAuth.instance;
 
   SignUpProvider() {
@@ -37,8 +40,10 @@ class SignUpProvider with ChangeNotifier {
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
     phoneNumberController = TextEditingController();
+    locationController = TextEditingController();
 
     nameCompanyFocusNode = FocusNode();
+    locationFocusNode = FocusNode();
     emailFocusNode = FocusNode();
     passwordFocusNode = FocusNode();
     confirmPasswordFocusNode = FocusNode();
@@ -99,7 +104,7 @@ class SignUpProvider with ChangeNotifier {
           "companyType": companyType,
           "products": [],
           "myOrders": [],
-          "location": "",
+          "location": locationController.text,
           "createdAt": Timestamp.now(),
         });
         if (!context.mounted) return;

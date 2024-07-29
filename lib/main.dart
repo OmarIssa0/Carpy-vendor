@@ -5,6 +5,7 @@ import 'package:car_vendor/features/auth/presentation/manger/provider/user_provi
 import 'package:car_vendor/features/auth/presentation/view/forget_password_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/sign_up_view.dart';
+import 'package:car_vendor/features/edit%20profile/presentation/view/edit_product_view.dart';
 import 'package:car_vendor/features/home/presentation/view/home_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/lang/cubit/locale_cubit.dart';
@@ -26,10 +27,9 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    // DeviceOrientation.portraitDown,
   ]);
   // WidgetsFlutterBinding.ensureInitialized();
   // setupServiceLocator();
@@ -94,6 +94,8 @@ class CarVendor extends StatelessWidget {
                   MarkerView.routeName: (context) => const MarkerView(),
                   ProfileView.routeName: (context) => const ProfileView(),
                   MyProductView.routeName: (context) => const MyProductView(),
+                  EditProductsView.routeName: (context) =>
+                      const EditProductsView(),
                 },
               );
             }

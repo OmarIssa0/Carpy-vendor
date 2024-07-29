@@ -38,7 +38,7 @@ class HomeViewBody extends StatelessWidget {
             // }
 
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return const Center(child: Text('No products available'));
+              return Center(child: Text('No products available'.tr(context)));
             }
 
             final vendorDocs = snapshot.data!.docs;

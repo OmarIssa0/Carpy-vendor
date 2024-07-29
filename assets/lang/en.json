@@ -119,5 +119,12 @@
     "Price before discount": "Price before discount",
     "No Orders": "No Orders",
     "Product category": "Product category",
-    "Add product": "Add product"
+    "Add product": "Add product",
+    "Edit profile": "Edit profile",
+    "Profile updated successfully": "Profile updated successfully:",
+    "Please enter your location": "Please enter your location",
+    "No products available": "No products available",
+    "info account": "info account",
+    "Are you sure you want to delete your account?": "Are you sure you want to delete your account?",
+    "Delete account": "Delete account"
 }

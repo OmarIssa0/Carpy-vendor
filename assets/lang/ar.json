@@ -119,5 +119,13 @@
     "Price before discount": "السعر قبل الخصم",
     "No Orders": "لا يوجد طلبات",
     "Product category": "فئة المنتج",
-    "Add product": "اضافة منتج"
+    "Add product": "اضافة منتج",
+    "Edit profile": "تعديل الملف الشخصي",
+    "Profile updated successfully": "تم تحديث الملف الشخصي بنجاح",
+    "Remove image": "ازالة الصورة",
+    "Please enter your location": "الرجاء أدخال موقعك",
+    "No products available": "لا يوجد منتجات متاحة",
+    "info account": "info account",
+    "Are you sure you want to delete your account?": "هل انت متاكد من حذف حسابك ؟",
+    "Delete account": "حذف الحساب"
 }

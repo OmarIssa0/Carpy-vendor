@@ -19,9 +19,12 @@ class CustomButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16),
             backgroundColor: AppColor.kBackGroundColorSplash),
         onPressed: onPressed,
-        child: Text(
-          title,
-          style: AppStyles.semiBold18.copyWith(color: Colors.white),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            title,
+            style: AppStyles.semiBold18.copyWith(color: Colors.white),
+          ),
         ),
       ),
     );

@@ -55,36 +55,33 @@ class SignUpViewBody extends StatelessWidget {
                                     width: 2),
                               ),
                               child: Center(
-                                child: Text("Upload Image".tr(context)),
+                                child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text("Upload Image".tr(context))),
                               ),
                             ),
                           )
-                        : GestureDetector(
-                            onTap: () {
-                              // provider.pickImage(context);
-                            },
-                            child: Container(
-                              height: 120,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: FileImage(File(provider.image!.path)),
-                                ),
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: AppColor.kBackGroundColorSplash,
-                                    width: 2),
+                        : Container(
+                            height: 120,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: FileImage(File(provider.image!.path)),
                               ),
-                              child: Center(
-                                child: Align(
-                                  alignment: const AlignmentDirectional(0, 1.6),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      provider.removeImage();
-                                    },
-                                    icon: const Icon(
-                                      IconlyBold.delete,
-                                      color: Colors.red,
-                                    ),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: AppColor.kBackGroundColorSplash,
+                                  width: 2),
+                            ),
+                            child: Center(
+                              child: Align(
+                                alignment: const AlignmentDirectional(0, 1.6),
+                                child: IconButton(
+                                  onPressed: () {
+                                    provider.removeImage();
+                                  },
+                                  icon: const Icon(
+                                    IconlyBold.delete,
+                                    color: Colors.red,
                                   ),
                                 ),
                               ),
@@ -192,6 +189,10 @@ class SignUpViewBody extends StatelessWidget {
                             : const Icon(IconlyBold.hide,
                                 color: AppColor.kSilver),
                       ),
+                      onFieldSubmitted: (p0) {
+                        FocusScope.of(context)
+                            .requestFocus(provider.locationFocusNode);
+                      },
                       prefix: const Icon(
                         IconlyBold.password,
                         color: AppColor.kSilver,
@@ -206,6 +207,25 @@ class SignUpViewBody extends StatelessWidget {
                             context,
                             value: p0);
                       },
+                    ),
+                    const SizedBox(height: 16),
+                    CustomTextFiled(
+                      validator: (p0) {
+                        if (provider.locationController.text.isEmpty) {
+                          return "Please enter your location".tr(context);
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: provider.locationController,
+                      focusNode: provider.locationFocusNode,
+                      prefix: const Icon(
+                        IconlyBold.location,
+                        color: AppColor.kSilver,
+                      ),
+                      title: "Location".tr(context),
+                      textInputType: TextInputType.streetAddress,
+                      textInputAction: TextInputAction.done,
                     ),
                     const SizedBox(height: 16),
                     const InfoUserMarketOrFreelancer(),

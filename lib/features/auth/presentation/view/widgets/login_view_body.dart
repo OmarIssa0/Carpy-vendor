@@ -116,24 +116,27 @@ class LoginViewBody extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 45),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Don’t have an vendor account ?".tr(context),
-                            style: AppStyles.medium12),
-                        GestureDetector(
-                          onTap: () {
-                            // Navigator.pushNamed(context, SignUpView.routeName);
-                            Navigator.push(
-                                context,
-                                AnimationNav.navigatorAnimation(
-                                    child: const SignUpView()));
-                          },
-                          child: Text(" Sign Up".tr(context),
-                              style: AppStyles.medium14.copyWith(
-                                  color: AppColor.kBackGroundColorSplash)),
-                        ),
-                      ],
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don’t have an vendor account ?".tr(context),
+                              style: AppStyles.medium12),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, SignUpView.routeName);
+                              Navigator.push(
+                                  context,
+                                  AnimationNav.navigatorAnimation(
+                                      child: const SignUpView()));
+                            },
+                            child: Text(" Sign Up".tr(context),
+                                style: AppStyles.medium14.copyWith(
+                                    color: AppColor.kBackGroundColorSplash)),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

@@ -51,7 +51,7 @@ class ItemProductsVendor extends StatelessWidget {
             );
           },
           child: Container(
-            height: size.height * .17,
+            height: size.height * .18,
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,6 +79,7 @@ class ItemProductsVendor extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
                           width: size.width * .45,
@@ -95,7 +96,7 @@ class ItemProductsVendor extends StatelessWidget {
                         SizedBox(
                           width: size.width * .45,
                           child: Text(
-                            maxLines: 2,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             // getCurrentProduct.descriptionProduct ?? "",
                             description,
@@ -108,6 +109,7 @@ class ItemProductsVendor extends StatelessWidget {
                     SizedBox(
                       width: size.width * .45,
                       child: Text(
+                        maxLines: 1,
                         // getCurrentProduct.priceProduct.toString(),
                         price,
                         style: AppStyles.regular12,

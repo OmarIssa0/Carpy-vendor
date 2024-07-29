@@ -7,6 +7,7 @@ import 'package:car_vendor/core/widgets/drop_down_button.dart';
 import 'package:car_vendor/features/auth/presentation/manger/model/user_model.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
+import 'package:car_vendor/features/edit%20profile/presentation/view/edit_product_view.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/profile/presentation/view/widgets/custom_list_tile.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -130,6 +131,20 @@ class _ProfileViewBodyState extends State<ProfileViewBody>
                       iconTrailing: const DropDownButtonLocal(),
                       title: "language",
                       function: () {}),
+                  const SizedBox(height: 12),
+                  CustomListTile(
+                    iconLeading: Icons.edit,
+                    iconTrailing: const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                    ),
+                    title: "Edit profile",
+                    function: () {
+                      Navigator.push(
+                          context,
+                          AnimationNav.navigatorAnimation(
+                              child: const EditProductsView()));
+                    },
+                  ),
                   const SizedBox(height: 12),
                 ],
               ),

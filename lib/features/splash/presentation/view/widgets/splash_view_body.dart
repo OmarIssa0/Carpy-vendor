@@ -55,15 +55,18 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Image.asset(
-      Assets.imagesSplachImage,
-      height: 150,
-      fit: BoxFit.scaleDown,
-    ));
+      child: Image.asset(
+        Assets.imagesSplachImage,
+        height: 150,
+        fit: BoxFit.scaleDown,
+      ),
+    );
+    
   }
 
   void excuteNavigation() {
     Future.delayed(const Duration(seconds: 3), () {
+      
       FirebaseAuth.instance.currentUser != null &&
               FirebaseAuth.instance.currentUser!.emailVerified
           ? Navigator.pushReplacement(

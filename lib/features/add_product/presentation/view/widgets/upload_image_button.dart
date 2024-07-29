@@ -52,6 +52,7 @@ class _UploadImageButtonState extends State<UploadImageButton> {
                                         widget.productNetworkImages[index],
                                     height: 150,
                                     boxFit: BoxFit.contain,
+                                    errorWidget: const Icon(Icons.error),
                                     // width: 75,
                                     // child: Image.network(
                                     //     height: 150,
@@ -75,6 +76,7 @@ class _UploadImageButtonState extends State<UploadImageButton> {
                   setState(() {});
                 },
                 child: Container(
+                  
                   padding:
                       const EdgeInsetsDirectional.symmetric(horizontal: 12),
                   width: 200,
@@ -83,13 +85,16 @@ class _UploadImageButtonState extends State<UploadImageButton> {
                     // color: AppColor.kGrayColor.withOpacity(.2),
                     color: Colors.grey.shade300,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(Assets.imagesUploadImage, height: 45),
-                      Text("Upload Image".tr(context),
-                          style: AppStyles.semiBold16),
-                    ],
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset(Assets.imagesUploadImage, height: 45),
+                        Text("Upload Image".tr(context),
+                            style: AppStyles.semiBold16),
+                      ],
+                    ),
                   ),
                 ),
               ),
