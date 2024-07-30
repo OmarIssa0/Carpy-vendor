@@ -1,3 +1,6 @@
+import 'package:car_vendor/core/api/firebase_analytics.dart';
+import 'package:car_vendor/core/api/firebase_api.dart';
+import 'package:car_vendor/core/service/adMob_provider.dart';
 import 'package:car_vendor/core/utils/theme.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
 import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
@@ -17,16 +20,22 @@ import 'package:car_vendor/features/settings/presentation/view/settings_view.dar
 import 'package:car_vendor/features/splash/presentation/view/splash_view.dart';
 import 'package:car_vendor/firebase_options.dart';
 import 'package:car_vendor/root_view.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseApi().initNotifications();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -58,6 +67,9 @@ class CarVendor extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => NEWProductProvider()),
         ChangeNotifierProvider(create: (_) => VendorProductsProvider()),
+        ChangeNotifierProvider(create: (context) => AdProvider()),
+        ChangeNotifierProvider(
+            create: (context) => AnalyticsService('vendors')),
       ],
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
@@ -67,6 +79,10 @@ class CarVendor extends StatelessWidget {
           builder: (context, state) {
             if (state is ChangeLocaleState) {
               return MaterialApp(
+                // navigatorObservers: [
+                //   FirebaseAnalyticsObserver(
+                //       analytics: FirebaseAnalytics.instance),
+                // ],
                 locale: state.locale,
                 supportedLocales: const [Locale('en'), Locale('ar')],
                 localizationsDelegates: const [

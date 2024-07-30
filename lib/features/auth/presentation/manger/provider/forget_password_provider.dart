@@ -1,8 +1,10 @@
+import 'package:car_vendor/core/api/firebase_analytics.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ForgetPasswordProvider extends ChangeNotifier {
   late TextEditingController emailController;
@@ -39,6 +41,15 @@ class ForgetPasswordProvider extends ChangeNotifier {
           lottileAnimation: Assets.imagesSendEmailCar,
           function: () {
             Navigator.of(context).pop();
+          },
+        );
+        final analyticsService =
+            Provider.of<AnalyticsService>(context, listen: false);
+        analyticsService.logEvent(
+          eventName: 'forgot_password_vendors',
+          parameters: {
+            'app_type': 'vendors',
+            'screen_name': 'forgot_password_vendors',
           },
         );
       } on FirebaseAuthException catch (e) {

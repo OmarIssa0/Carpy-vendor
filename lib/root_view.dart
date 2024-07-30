@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:car_vendor/core/service/widgets_ad_banner.dart';
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/home/presentation/view/home_view.dart';
@@ -65,48 +66,66 @@ class _RootViewState extends State<RootView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _controller,
-        // physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (value) {
-          setState(() {
-            currentScreen = value;
-          });
-        },
-        children: view,
+      body: Stack(
+        children: [
+          PageView(
+            controller: _controller,
+            // physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (value) {
+              setState(() {
+                currentScreen = value;
+              });
+            },
+            children: view,
+          ),
+          // const Positioned(
+          //   // bottom: 0,
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: AdMobBanner(),
+          // ),
+        ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentScreen,
-        onDestinationSelected: (value) {
-          setState(() {
-            // currentScreen = value;
-          });
-          _controller.animateToPage(value,
-              duration: const Duration(milliseconds: 500), curve: Curves.ease);
-        },
-        indicatorColor: Theme.of(context).scaffoldBackgroundColor,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        // backgroundColor: AppColor.kWhite,
-        elevation: 0,
-        destinations: [
-          NavigationDestination(
-            enabled: true,
-            icon: const Icon(IconlyLight.home),
-            label: 'Home'.tr(context),
-            selectedIcon: const Icon(IconlyBold.home,
-                color: AppColor.kBackGroundColorSplash),
-          ),
-          NavigationDestination(
-            icon: const Icon(IconlyLight.bag),
-            label: 'My Products'.tr(context),
-            selectedIcon: const Icon(IconlyBold.bag,
-                color: AppColor.kBackGroundColorSplash),
-          ),
-          NavigationDestination(
-            icon: const Icon(IconlyLight.profile),
-            label: 'My Profile'.tr(context),
-            selectedIcon: const Icon(IconlyBold.profile,
-                color: AppColor.kBackGroundColorSplash),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const AdMobBanner(),
+          NavigationBar(
+            selectedIndex: currentScreen,
+            onDestinationSelected: (value) {
+              setState(() {
+                // currentScreen = value;
+              });
+              _controller.animateToPage(value,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.ease);
+            },
+            indicatorColor: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            // backgroundColor: AppColor.kWhite,
+            elevation: 0,
+            destinations: [
+              NavigationDestination(
+                enabled: true,
+                icon: const Icon(IconlyLight.home),
+                label: 'Home'.tr(context),
+                selectedIcon: const Icon(IconlyBold.home,
+                    color: AppColor.kBackGroundColorSplash),
+              ),
+              NavigationDestination(
+                icon: const Icon(IconlyLight.bag),
+                label: 'My Products'.tr(context),
+                selectedIcon: const Icon(IconlyBold.bag,
+                    color: AppColor.kBackGroundColorSplash),
+              ),
+              NavigationDestination(
+                icon: const Icon(IconlyLight.profile),
+                label: 'My Profile'.tr(context),
+                selectedIcon: const Icon(IconlyBold.profile,
+                    color: AppColor.kBackGroundColorSplash),
+              ),
+            ],
           ),
         ],
       ),

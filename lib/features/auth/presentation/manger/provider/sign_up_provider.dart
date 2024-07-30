@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:car_vendor/core/api/firebase_analytics.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
@@ -8,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class SignUpProvider with ChangeNotifier {
   final formKey = GlobalKey<FormState>();
@@ -127,6 +129,15 @@ class SignUpProvider with ChangeNotifier {
         );
         FirebaseAuth.instance.setLanguageCode("ar");
         FirebaseAuth.instance.currentUser!.sendEmailVerification();
+        final analyticsService =
+            Provider.of<AnalyticsService>(context, listen: false);
+        analyticsService.logEvent(
+          eventName: 'sign_up_vendors',
+          parameters: {
+            'app_type': 'vendors',
+            'screen_name': 'sign_up_vendors',
+          },
+        );
       } on FirebaseAuthException catch (error) {
         if (error.code == "weak-password") {
           AlertDialogMethods.showError(

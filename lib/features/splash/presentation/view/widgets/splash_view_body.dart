@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:car_vendor/core/api/firebase_analytics.dart';
 import 'package:car_vendor/core/utils/animation_nav.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
@@ -61,12 +62,19 @@ class _SplashViewBodyState extends State<SplashViewBody> {
         fit: BoxFit.scaleDown,
       ),
     );
-    
   }
 
   void excuteNavigation() {
     Future.delayed(const Duration(seconds: 3), () {
-      
+      final analyticsService =
+          Provider.of<AnalyticsService>(context, listen: false);
+      analyticsService.logEvent(
+        eventName: 'screen_viewed_vendors',
+        parameters: {
+          'app_type': 'vendors',
+          'screen_name': 'screen_viewed_vendors',
+        },
+      );
       FirebaseAuth.instance.currentUser != null &&
               FirebaseAuth.instance.currentUser!.emailVerified
           ? Navigator.pushReplacement(

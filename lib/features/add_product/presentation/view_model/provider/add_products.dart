@@ -1,3 +1,4 @@
+import 'package:car_vendor/core/api/firebase_analytics.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -212,6 +213,15 @@ class NEWProductProvider with ChangeNotifier {
       });
 
       notifyListeners();
+      final analyticsService =
+          Provider.of<AnalyticsService>(context, listen: false);
+      analyticsService.logEvent(
+        eventName: 'add_product_vendors',
+        parameters: {
+          'app_type': 'vendors',
+          'screen_name': 'add_product_vendors',
+        },
+      );
     } catch (e) {
       print("Error updating product in Firestore: $e");
     }
@@ -252,7 +262,15 @@ class NEWProductProvider with ChangeNotifier {
           'products': products,
         });
       }
-
+      final analyticsService =
+          Provider.of<AnalyticsService>(context, listen: false);
+      analyticsService.logEvent(
+        eventName: 'delete_product_vendors',
+        parameters: {
+          'app_type': 'vendors',
+          'screen_name': 'delete_product_vendors',
+        },
+      );
       notifyListeners();
     } catch (e) {
       print("Error deleting product from Firestore: $e");

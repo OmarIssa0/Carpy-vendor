@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:car_vendor/core/service/widgets_ad_banner.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
@@ -29,6 +30,7 @@ class _EditProductsViewState extends State<EditProductsView> {
     return LoadingMangerView(
       isLoading: isLoading,
       child: Scaffold(
+        bottomNavigationBar: const AdMobBanner(),
         appBar: AppBar(
           actions: [
             Padding(

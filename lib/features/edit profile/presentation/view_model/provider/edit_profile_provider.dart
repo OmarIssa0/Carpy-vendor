@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:car_vendor/core/api/firebase_analytics.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
@@ -119,6 +120,15 @@ class EditProfileProvider with ChangeNotifier {
         Future.delayed(const Duration(seconds: 1), () {
           Navigator.of(context).pop();
         });
+        final analyticsService =
+            Provider.of<AnalyticsService>(context, listen: false);
+        analyticsService.logEvent(
+          eventName: 'edit_profile_vendors',
+          parameters: {
+            'app_type': 'vendors',
+            'screen_name': 'edit_profile_vendors',
+          },
+        );
         // notifyListeners();
       } on FirebaseException catch (e) {
         if (!context.mounted) return;

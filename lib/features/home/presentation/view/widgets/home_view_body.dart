@@ -21,12 +21,7 @@ class HomeViewBody extends StatelessWidget {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: MediaQuery.sizeOf(context).width < SizeConfig.tablet
-            ? const EdgeInsetsDirectional.only(start: 24, end: 24)
-            : EdgeInsetsDirectional.only(
-                start: MediaQuery.sizeOf(context).width / 6,
-                end: MediaQuery.sizeOf(context).width / 6,
-              ),
+        padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
         child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('vendors')

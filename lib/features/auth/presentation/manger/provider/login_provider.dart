@@ -1,3 +1,4 @@
+import 'package:car_vendor/core/api/firebase_analytics.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
@@ -5,6 +6,7 @@ import 'package:car_vendor/root_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class LoginProvider with ChangeNotifier {
   // Controllers
@@ -59,7 +61,8 @@ class LoginProvider with ChangeNotifier {
           email: emailTextController.text.trim(),
           password: passwordTextController.text.trim(),
         );
-
+        final analyticsService =
+            Provider.of<AnalyticsService>(context, listen: false);
         if (auth.user!.emailVerified) {
           if (!context.mounted) return;
           Fluttertoast.showToast(
@@ -70,6 +73,13 @@ class LoginProvider with ChangeNotifier {
           if (!context.mounted) return;
           await Navigator.of(context)
               .pushNamedAndRemoveUntil(RootView.routeName, (route) => false);
+          analyticsService.logEvent(
+            eventName: 'login_vendors',
+            parameters: {
+              'app_type': 'vendors',
+              'screen_name': 'login_vendors',
+            },
+          );
         } else {
           if (!context.mounted) return;
           AlertDialogMethods.showDialogForgotPassword(
