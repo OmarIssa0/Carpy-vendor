@@ -49,14 +49,6 @@ class AppConstants {
     "Volvo - فولفو",
   ];
   static List<String> categoryList = [
-    // "قطع غيار",
-    // "اكسسوارات وتعديلات",
-    // "إطارات وعجلات",
-    // "زيوت وسوائل",
-    // "معدات الصيانة والتنظيف",
-    // "أنظمة الأمان",
-    // "التجهيزات الخارجية",
-    // "استئجار المركبات",
     "اكسسوارات",
     "قطع غيار",
     "استئجار المركبات",
@@ -64,7 +56,52 @@ class AppConstants {
     "تعبئة على الطريق",
     "زيوت وسوائل",
     "تنظيف المركبات"
-    // "",
+  ];
+  static List<String> colorList = [
+    'أحمر',
+    'أزرق',
+    'أسود',
+    'أبيض',
+    'فضي',
+    'رمادي',
+    'أخضر',
+    'برتقالي',
+    'بني',
+    'أصفر',
+    'أرجواني',
+    'زهري',
+    'بحري',
+    'أزرق فاتح',
+    'أخضر فاتح',
+    'أحمر داكن',
+    'أزرق داكن',
+    'برونزي',
+    'مشمشي',
+    'ذهبي',
+    'نيلي',
+    'أبيض لؤلؤي',
+    'رمادي غامق',
+    'أسود معدني',
+    'أحمر مشرق',
+    'أزرق سماوي',
+    'أخضر زيتوني',
+    'بيج'
+  ];
+  static List<String> kilometerList = [
+    'صفر',
+    'أقل من 10,000 كم',
+    '10,000 - 20,000 كم',
+    '20,000 - 30,000 كم',
+    '30,000 - 40,000 كم',
+    '40,000 - 50,000 كم',
+    '50,000 - 60,000 كم',
+    '60,000 - 70,000 كم',
+    '70,000 - 80,000 كم',
+    '80,000 - 90,000 كم',
+    '90,000 - 100,000 كم',
+    '100,000 - 150,000 كم',
+    '150,000 - 200,000 كم',
+    'أكثر من 200,000 كم',
   ];
 
   static List<DropdownMenuItem<String>> brandDropDownList() {
@@ -75,6 +112,34 @@ class AppConstants {
         value: brandList[index],
         child: Text(
           brandList[index],
+        ),
+      ),
+    );
+    return menuItem;
+  }
+
+  static List<DropdownMenuItem<String>> kilometerListDropDown() {
+    List<DropdownMenuItem<String>> menuItem =
+        List<DropdownMenuItem<String>>.generate(
+      kilometerList.length,
+      (index) => DropdownMenuItem(
+        value: kilometerList[index],
+        child: Text(
+          kilometerList[index],
+        ),
+      ),
+    );
+    return menuItem;
+  }
+
+  static List<DropdownMenuItem<String>> colorDropDownList() {
+    List<DropdownMenuItem<String>> menuItem =
+        List<DropdownMenuItem<String>>.generate(
+      colorList.length,
+      (index) => DropdownMenuItem(
+        value: colorList[index],
+        child: Text(
+          colorList[index],
         ),
       ),
     );

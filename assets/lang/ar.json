@@ -127,5 +127,8 @@
     "No products available": "لا يوجد منتجات متاحة",
     "info account": "info account",
     "Are you sure you want to delete your account?": "هل انت متاكد من حذف حسابك ؟",
-    "Delete account": "حذف الحساب"
+    "Delete account": "حذف الحساب",
+    "Select Car Features": "تحديد خصائص السيارة",
+    "Color": "اللون",
+    "kilometer": "كيلومتر"
 }

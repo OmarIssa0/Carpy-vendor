@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:car_vendor/core/constant/my_const.dart';
-import 'package:car_vendor/core/service/widgets_ad_banner.dart';
+import 'package:car_vendor/core/utils/animation_nav.dart';
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_image.dart';
 import 'package:car_vendor/core/utils/app_styles.dart';
@@ -7,10 +9,12 @@ import 'package:car_vendor/core/utils/size_config.dart';
 import 'package:car_vendor/core/widgets/alert_dialog.dart';
 import 'package:car_vendor/core/widgets/custom_button.dart';
 import 'package:car_vendor/core/widgets/custom_text_filed.dart';
+import 'package:car_vendor/features/add_product/presentation/view/widgets/car_features_selecation_screen.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/custom_dropdown_button.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/text_form_field_description.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/upload_image_button.dart';
 import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
+import 'package:car_vendor/features/add_product/presentation/view_model/provider/car_specification_proovider.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/lang/app_localization.dart';
 import 'package:car_vendor/features/my_product/presentation/view_model/model/products_model.dart';
@@ -45,12 +49,16 @@ class _MarketViewBodyState extends State<MarketViewBody> {
   String? _brandCar;
   String? _modelValue;
   String? _categoryAd;
+  String? _colorCar;
+  String? kilometer;
   // bool isSwitchReservation = false;
   List productNetworkImage = [];
+  // List selectedFeatures = [];
   bool isEditing = false;
   bool isReservation = false;
 
-  NEWProductProvider? _provider;
+  AddProductsProvider? _provider;
+  CarFeaturesProvider? carFeaturesProvider;
 
   @override
   void initState() {
@@ -67,8 +75,11 @@ class _MarketViewBodyState extends State<MarketViewBody> {
       descriptionController.text = widget.productsModel!.descriptionProduct;
 
       discountController.text = widget.productsModel!.discount ?? "";
+      _colorCar = widget.productsModel?.color ?? "";
       _brandCar = widget.productsModel!.categoryProduct;
+      kilometer = widget.productsModel?.kilometer ?? "";
       _modelValue = widget.productsModel!.modelProduct;
+      // selectedFeatures = widget.productsModel!.selectedFeatures ?? [];
       _categoryAd = widget.productsModel!.categoryTypeAd;
       isReservation = widget.productsModel!.isSwitchReservation;
     }
@@ -77,7 +88,9 @@ class _MarketViewBodyState extends State<MarketViewBody> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _provider ??= Provider.of<NEWProductProvider>(context, listen: false);
+    _provider ??= Provider.of<AddProductsProvider>(context, listen: false);
+    carFeaturesProvider ??=
+        Provider.of<CarFeaturesProvider>(context, listen: false);
   }
 
   @override
@@ -98,9 +111,11 @@ class _MarketViewBodyState extends State<MarketViewBody> {
 
     brandFocusNode.dispose();
     productNetworkImage.clear();
+    // selectedFeatures.clear();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _provider?.clearImages();
+      carFeaturesProvider?.clearSelectedFeatures();
     });
 
     super.dispose();
@@ -108,7 +123,11 @@ class _MarketViewBodyState extends State<MarketViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<NEWProductProvider>(context);
+    final productProvider = Provider.of<AddProductsProvider>(context);
+    var carFeaturesProvider = Provider.of<CarFeaturesProvider>(context);
+    String selectedFeaturesText =
+        carFeaturesProvider.selectedFeatureNames.toList().join(', ');
+
     // final userProvider = Provider.of<UserProvider>(context);
     return LoadingMangerView(
       isLoading: productProvider.isLoading,
@@ -275,6 +294,131 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     },
                   ),
                 ),
+                SizedBox(
+                    height: _categoryAd == "مركبات للبيع" ||
+                            _categoryAd == "استئجار المركبات"
+                        ? 15
+                        : 0),
+
+                _categoryAd == "مركبات للبيع" ||
+                        _categoryAd == "استئجار المركبات"
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            AnimationNav.navigatorAnimation(
+                              child: const CarFeaturesSelectionScreen(),
+                            ),
+                          );
+                          FocusScope.of(context).unfocus();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 1),
+                          height: 50,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                            border: Border.all(
+                              color: AppColor.kSilver.withOpacity(.2),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  selectedFeaturesText.isNotEmpty
+                                      ? selectedFeaturesText
+                                      : 'Select Car Features'.tr(context),
+                                  style: TextStyle(
+                                    color: selectedFeaturesText.isNotEmpty
+                                        ? AppColor.kBlack
+                                        : AppColor.kSilver,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              const Icon(
+                                IconlyLight.arrow_down_2,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
+                SizedBox(
+                    height: _categoryAd == "مركبات للبيع" ||
+                            _categoryAd == "استئجار المركبات"
+                        ? 15
+                        : 0),
+
+                _categoryAd == "مركبات للبيع" ||
+                        _categoryAd == "استئجار المركبات"
+                    ? Row(
+                        children: [
+                          Expanded(
+                            child: CustomDropdown(
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: const SizedBox(),
+                                icon: const Icon(IconlyLight.arrow_down_2),
+                                dropdownColor: Colors.white,
+                                // value: _yearValue,
+                                value: _colorCar,
+                                hint: Text(
+                                  _colorCar ?? "Color".tr(context),
+                                  style: const TextStyle(
+                                    color: AppColor.kSilver,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+
+                                items: AppConstants.colorDropDownList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _colorCar = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: CustomDropdown(
+                              child: DropdownButton(
+                                isExpanded: true,
+                                underline: const SizedBox(),
+                                icon: const Icon(IconlyLight.arrow_down_2),
+                                dropdownColor: Colors.white,
+                                // value: _yearValue,
+                                value: kilometer,
+                                hint: Text(
+                                  kilometer ?? "kilometer".tr(context),
+                                  style: const TextStyle(
+                                    color: AppColor.kSilver,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+
+                                items: AppConstants.kilometerListDropDown(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    kilometer = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : const SizedBox.shrink(),
                 const SizedBox(height: 15),
                 TextFormFieldDescription(
                   onFieldSubmitted: (p0) {
@@ -308,6 +452,10 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                     ),
                   ],
                 ),
+                // const SizedBox(
+                //   height: 450,
+                //   child: SpecificationSelector(),
+                // ),
                 const SizedBox(height: 15),
                 isEditing
                     ? CustomButton(
@@ -358,12 +506,13 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                               productNameController,
                               priceController,
                               descriptionController,
-
                               discountController,
                               _brandCar,
                               _modelValue,
                               isReservation,
                               _categoryAd,
+                              _colorCar,
+                              kilometer,
                             );
                             productNameController.clear();
                             priceController.clear();
@@ -374,6 +523,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                             _categoryAd = null;
                             productNetworkImage.clear();
                             productProvider.selectedImages.clear();
+
                             if (!context.mounted) return;
                             AlertDialogMethods.showDialogForgotPassword(
                               context: context,

@@ -49,6 +49,10 @@ class VendorProductsProvider with ChangeNotifier {
           companyName: product['companyName'],
           phoneNumberVendor: product['phoneNumber'],
           categoryTypeAd: product['categoryTypeAd'],
+          selectedFeatures:
+              List<String>.from(product['selectedFeatures'] ?? []),
+          color: product['color'],
+          kilometer: product['kilometer'],
         );
       }
       notifyListeners();

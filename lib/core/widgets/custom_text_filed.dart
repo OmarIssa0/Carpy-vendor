@@ -22,6 +22,7 @@ class CustomTextFiled extends StatelessWidget {
     this.suffixIcon,
     this.minLines,
     this.maxLines,
+    this.onChanged,
   });
 
   final TextEditingController? controller;
@@ -40,6 +41,7 @@ class CustomTextFiled extends StatelessWidget {
   final String? prefixText;
   final Widget? suffixIcon;
   final int? minLines, maxLines;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class CustomTextFiled extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       onTap: onTap,
       readOnly: readOnly,
+      onChanged: onChanged,
     );
   }
 }

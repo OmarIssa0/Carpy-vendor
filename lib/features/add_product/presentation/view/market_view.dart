@@ -1,4 +1,3 @@
-import 'package:car_vendor/core/service/widgets_ad_banner.dart';
 import 'package:car_vendor/core/utils/app_color.dart';
 import 'package:car_vendor/core/utils/app_styles.dart';
 import 'package:car_vendor/features/add_product/presentation/view/widgets/market_view_body.dart';
@@ -17,7 +16,7 @@ class MarkerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const AdMobBanner(),
+      // bottomNavigationBar: const AdMobBanner(),
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(

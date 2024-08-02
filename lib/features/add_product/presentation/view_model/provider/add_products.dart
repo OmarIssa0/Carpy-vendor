@@ -1,4 +1,5 @@
 import 'package:car_vendor/core/api/firebase_analytics.dart';
+import 'package:car_vendor/features/add_product/presentation/view_model/provider/car_specification_proovider.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,7 +9,7 @@ import 'dart:io';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-class NEWProductProvider with ChangeNotifier {
+class AddProductsProvider with ChangeNotifier {
   List<XFile> _selectedImages = [];
   List<XFile> get selectedImages => _selectedImages;
   bool _isLoading = false;
@@ -73,15 +74,20 @@ class NEWProductProvider with ChangeNotifier {
     String? modelValue,
     bool isSwitchReservation,
     String? categoryTypeAd,
+    String? color,
+    String? kilometer,
   ) async {
     final firestore = FirebaseFirestore.instance;
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final userModel = userProvider.userModel;
+    final carFeaturesProvider =
+        Provider.of<CarFeaturesProvider>(context, listen: false);
 
     if (userModel == null) return;
 
     final productID = const Uuid().v4();
     final collectionRef = firestore.collection('product').doc(productID);
+    final selectedFeatures = carFeaturesProvider.selectedFeatureNames;
 
     try {
       await collectionRef.set({
@@ -101,6 +107,18 @@ class NEWProductProvider with ChangeNotifier {
         'userId': userModel.vendorId,
         'companyName': userModel.vendorName,
         'phoneNumber': userModel.phoneNumber,
+        'selectedFeatures': categoryTypeAd == "مركبات للبيع" ||
+                categoryTypeAd == "استئجار المركبات"
+            ? selectedFeatures
+            : null,
+        'color': categoryTypeAd == "مركبات للبيع" ||
+                categoryTypeAd == "استئجار المركبات"
+            ? color
+            : null,
+        'kilometer': categoryTypeAd == "مركبات للبيع" ||
+                categoryTypeAd == "استئجار المركبات"
+            ? kilometer
+            : null
       });
 
       await firestore.collection('vendors').doc(userModel.vendorId).update({
@@ -122,6 +140,18 @@ class NEWProductProvider with ChangeNotifier {
             'userId': userModel.vendorId,
             'companyName': userModel.vendorName,
             'phoneNumber': userModel.phoneNumber,
+            'selectedFeatures': categoryTypeAd == "مركبات للبيع" ||
+                    categoryTypeAd == "استئجار المركبات"
+                ? selectedFeatures
+                : null,
+            'color': categoryTypeAd == "مركبات للبيع" ||
+                    categoryTypeAd == "استئجار المركبات"
+                ? color
+                : null,
+            'kilometer': categoryTypeAd == "مركبات للبيع" ||
+                    categoryTypeAd == "استئجار المركبات"
+                ? kilometer
+                : null
           }
         ]),
       });

@@ -12,8 +12,9 @@ class ProductsModel extends ChangeNotifier {
       productsId,
       imageCompany,
       userId;
-  final String? locationVendor, discount, categoryTypeAd;
+  final String? locationVendor, discount, categoryTypeAd, color, kilometer;
   List<dynamic> imagesProduct;
+  List<String>? selectedFeatures;
   // List<dynamic> productsVendor;
   bool isSwitchReservation = false;
   // Timestamp? createdAt;
@@ -31,6 +32,9 @@ class ProductsModel extends ChangeNotifier {
     required this.categoryProduct,
     required this.imagesProduct,
     required this.categoryTypeAd,
+    required this.color,
+    required this.kilometer,
+    this.selectedFeatures,
     // required this.productsVendor,
     required this.isSwitchReservation,
     this.locationVendor,
@@ -55,6 +59,9 @@ class ProductsModel extends ChangeNotifier {
       locationVendor: data['location'],
       discount: data['discount'],
       categoryTypeAd: data['categoryTypeAd'],
+      selectedFeatures: data['selectedFeatures'],
+      color: data['color'],
+      kilometer: data['kilometer'],
     );
   }
   // factory ProductsModel.fromFirebase(DocumentSnapshot doc) {

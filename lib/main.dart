@@ -4,6 +4,7 @@ import 'package:car_vendor/core/service/adMob_provider.dart';
 import 'package:car_vendor/core/utils/theme.dart';
 import 'package:car_vendor/features/add_product/presentation/view/market_view.dart';
 import 'package:car_vendor/features/add_product/presentation/view_model/provider/add_products.dart';
+import 'package:car_vendor/features/add_product/presentation/view_model/provider/car_specification_proovider.dart';
 import 'package:car_vendor/features/auth/presentation/manger/provider/user_provider.dart';
 import 'package:car_vendor/features/auth/presentation/view/forget_password_view.dart';
 import 'package:car_vendor/features/auth/presentation/view/login_view.dart';
@@ -20,8 +21,6 @@ import 'package:car_vendor/features/settings/presentation/view/settings_view.dar
 import 'package:car_vendor/features/splash/presentation/view/splash_view.dart';
 import 'package:car_vendor/firebase_options.dart';
 import 'package:car_vendor/root_view.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,9 +64,10 @@ class CarVendor extends StatelessWidget {
       providers: [
         // ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => NEWProductProvider()),
+        ChangeNotifierProvider(create: (_) => AddProductsProvider()),
         ChangeNotifierProvider(create: (_) => VendorProductsProvider()),
         ChangeNotifierProvider(create: (context) => AdProvider()),
+        ChangeNotifierProvider(create: (context) => CarFeaturesProvider()),
         ChangeNotifierProvider(
             create: (context) => AnalyticsService('vendors')),
       ],
