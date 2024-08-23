@@ -8,12 +8,14 @@ class CustomListTile extends StatelessWidget {
       required this.iconLeading,
       required this.iconTrailing,
       required this.title,
-      required this.function});
+      required this.function,
+      this.iconColor});
 
   final IconData iconLeading;
   final Widget iconTrailing;
   final String title;
   final Function function;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class CustomListTile extends StatelessWidget {
             child: Icon(
               //
               iconLeading,
-              size: 28,
+              size: 28, color: iconColor,
             ),
           ),
           title: Text(

@@ -459,6 +459,7 @@ class _MarketViewBodyState extends State<MarketViewBody> {
                 const SizedBox(height: 15),
                 isEditing
                     ? CustomButton(
+                        color: Colors.red,
                         title: "Delete Product".tr(context),
                         onPressed: () async {
                           AlertDialogMethods.showDialogWaring(
